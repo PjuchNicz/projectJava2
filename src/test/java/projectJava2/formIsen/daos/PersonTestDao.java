@@ -50,7 +50,7 @@ public class PersonTestDao {
 
         assertThat(persons).hasSize(1);
         assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date")
-                .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", date1));
+                .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", "2015-12-12 12:00:00.000"));
     }
 
 }
