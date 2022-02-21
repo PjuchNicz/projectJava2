@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class PersonTestDao {
                         + "  birth_date DATE NULL);");
         stmt.executeUpdate("DELETE FROM person");
         stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
-                + "VALUES (1, 'LastName', 'FirstName', 'NickName', '0600000000', '1 rue Rue', 'adress@gmail.com','2015-12-12 12:00:00.000')");
+                + "VALUES (1, 'LastName', 'FirstName', 'NickName', '0600000000', '1 rue Rue', 'adress@gmail.com','2015-11-29 00:00:00.000')");
         stmt.close();
         connection.close();
     }
@@ -45,12 +45,9 @@ public class PersonTestDao {
         // WHEN
         List<Person> persons = personDao.listPersons();
         // THEN
-        String str = "2015-12-12 12:00:00.000";
-        Date date1=new SimpleDateFormat("yyyy-dd-MM").parse(str);
-
         assertThat(persons).hasSize(1);
         assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date")
-                .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", "2015-12-12 12:00:00.000"));
+                .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate()));
     }
 
 }
