@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.HomeScreenController">
+   <children>
+      <Text layoutX="260.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORM" textAlignment="CENTER" wrappingWidth="79.33935546875" AnchorPane.topAnchor="44.0" />
+      <TextField layoutX="104.0" layoutY="87.0" promptText="Prénom" />
+      <TextField layoutX="104.0" layoutY="122.0" promptText="Nom" />
+      <TextField layoutX="104.0" layoutY="157.0" promptText="Surnom" />
+      <TextField layoutX="104.0" layoutY="192.0" promptText="Numéro de téléphone" />
+      <TextField layoutX="104.0" layoutY="262.0" promptText="E-mail" />
+      <TextField layoutX="104.0" layoutY="227.0" promptText="Adresse" />
+      <DatePicker layoutX="97.0" layoutY="301.0" promptText="Date de Naissance" />
+   </children>
+</AnchorPane>

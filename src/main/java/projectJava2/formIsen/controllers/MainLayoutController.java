@@ -1,6 +1,7 @@
 package projectJava2.formIsen.controllers;
 
 import javafx.application.Platform;
+import projectJava2.formIsen.App;
 
 public class MainLayoutController {
 
@@ -9,11 +10,7 @@ public class MainLayoutController {
 	}
 
 	public void gotoHome() {
-
-	}
-
-	public void gotoQuestionAdmin() {
-
+		App.showView("HomeScreen");
 	}
 
 }
