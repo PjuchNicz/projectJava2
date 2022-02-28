@@ -8,6 +8,7 @@ import org.junit.Test;
 import projectJava2.formIsen.person.Person;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class PersonTestDao {
     }
 
     @Test
-    public void shouldListPersons() throws ParseException {
+    public void shouldListPersons() {
         // WHEN
         List<Person> persons = personDao.listPersons();
         // THEN
@@ -49,5 +50,25 @@ public class PersonTestDao {
         assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date")
                 .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate()));
     }
+
+    @Test
+    public void shouldAddFilm() throws Exception {
+        // WHEN
+        Person person = new Person(null, "juch", "pierre", "pierro", "0611111111",
+                "rue","juch.pierre@",LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
+        personDao.addPerson(person);
+        // THEN
+        Connection connection = DataSourceFactory.getDataSource().getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM person WHERE lastname='juch'");
+        assertThat(resultSet.next()).isTrue();
+        assertThat(resultSet.getInt("idperson")).isNotNull();
+        assertThat(resultSet.getString("lastname")).isEqualTo("juch");
+        assertThat(resultSet.next()).isFalse();
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+
 
 }
