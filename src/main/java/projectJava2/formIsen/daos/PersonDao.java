@@ -35,6 +35,7 @@ public class PersonDao {
     }
 
     public List<Person> listPersonsByFirstname() {
+        //TODO listPersonByFirstname
         throw new RuntimeException("Method is not yet implemented");
     }
 
@@ -63,6 +64,13 @@ public class PersonDao {
         return null;
     }
 
+    public Person modifyPerson(Person person) {
+        //TODO modifyPerson
+        throw new RuntimeException("Method is not yet implemented");
+    }
 
-
+    public Person deletePerson(Person person) {
+        //TODO deletePerson
+        throw new RuntimeException("Method is not yet implemented");
+    }
 }
