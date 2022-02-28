@@ -45,7 +45,7 @@ public class PersonDao {
             try (PreparedStatement statement = connection.prepareStatement(
                     sqlQuery, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, person.getLastname());
-                statement.setString(2, person.getLastname());
+                statement.setString(2, person.getFirstname());
                 statement.setString(3, person.getNickname());
                 statement.setString(4, person.getPhone_number());
                 statement.setString(5, person.getAddress());

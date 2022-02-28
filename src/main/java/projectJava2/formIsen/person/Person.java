@@ -1,7 +1,10 @@
 package projectJava2.formIsen.person;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class Person {
     private Integer idperson;
@@ -91,6 +94,18 @@ public class Person {
     public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-
-}
+    public List<String> toStringList() {
+    	List<String> listeAttribut = new ArrayList<>();
+    	Collections.addAll(listeAttribut,
+    	idperson.toString(),
+        lastname,
+        firstname,
+        nickname,
+        phone_number,
+        address,
+        email_address,
+        birth_date.toString());
+    	return listeAttribut;
+    }
+} 
 

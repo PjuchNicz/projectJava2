@@ -1,4 +1,4 @@
-package projectJava2.formIsen.export;
+package projectJava2.formIsen.transport;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,9 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectJava2.formIsen.person.Person;
 import projectJava2.formIsen.daos.PersonDao;
-
+import projectJava2.formIsen.person.Person;
 public class Export {
 	String filename = "test";
 	
@@ -21,12 +20,7 @@ public class Export {
 		Person leo = new Person(2,"Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now());
 		Person mael = new Person(3,"Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now());
 		//dao.addPerson(leo);
-		//dao.addPerson(mael);
-		
-		List<Person> listep = dao.listPersons();
-		listep.forEach(p -> System.out.println(p.getFirstname()));
-		
-		
+		//dao.addPerson(mael);		
     }
 	
 	
@@ -46,11 +40,19 @@ public class Export {
 
 	}
 	public void exportDataBase(String extension) throws IOException {
+		String separator = ",";
+		
 		PersonDao dao = new PersonDao();
 		List<Person> listePersons = dao.listPersons();
-		List<String> listeNom = new ArrayList<String>();
-		
-		listePersons.forEach(p -> listeNom.add(p.getFirstname()));
-		writeFile(listeNom,".txt");
+		List<String> listestring = new ArrayList<String>();
+		for(Person p : listePersons) {
+			String personString= "";
+			for(String s : p.toStringList()) {
+				personString = personString.concat(s+separator);
+			}
+			personString = personString.substring(0, personString.length() - 1);
+			listestring.add(personString);
+		}
+		writeFile(listestring,extension);
 	}
 }

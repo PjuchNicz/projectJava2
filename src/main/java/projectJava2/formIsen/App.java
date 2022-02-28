@@ -5,7 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import projectJava2.formIsen.export.Export;
+import projectJava2.formIsen.transport.Export;
+import projectJava2.formIsen.transport.Import;
 
 import java.io.IOException;
 
@@ -32,9 +33,12 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
     	Export f = new Export();
-    	f.exportDataBase(".txt");
+    	//f.exportDataBase(".csv");
+    	Import i = new Import();
+    	i.reader();
+    	i.printList();
     	//launch();
     }
 
