@@ -70,5 +70,13 @@ public class PersonTestDao {
         connection.close();
     }
 
+    @Test
+    public void shouldListPersonsByFirstname() throws Exception {
+        // WHEN
+        List<Person> persons = personDao.listPersonsByFirstname("FI%");
+        // THEN
+
+    }
+
 
 }

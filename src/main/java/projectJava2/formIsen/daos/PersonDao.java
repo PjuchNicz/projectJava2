@@ -13,7 +13,7 @@ public class PersonDao {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
             try (Statement statement = connection.createStatement()) {
-                try (ResultSet results = statement.executeQuery("SELECT * from person")) {
+                try (ResultSet results = statement.executeQuery("SELECT * FROM person")) {
                     while (results.next()) {
                         Person person = new Person(results.getInt("idperson"),
                                 results.getString("lastname"),
@@ -34,9 +34,23 @@ public class PersonDao {
         return listOfPersons;
     }
 
-    public List<Person> listPersonsByFirstname() {
+    public List<Person> listPersonsByFirstname(String firstname) {
         //TODO listPersonByFirstname
-        throw new RuntimeException("Method is not yet implemented");
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM person WHERE firstname LIKE ?")) {
+                statement.setString(1, firstname);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        System.out.println(results.getString("firstname"));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
     }
 
     public Person addPerson(Person person) {
