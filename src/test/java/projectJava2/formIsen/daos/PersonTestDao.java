@@ -52,7 +52,7 @@ public class PersonTestDao {
     }
 
     @Test
-    public void shouldAddFilm() throws Exception {
+    public void shouldAddPerson() throws Exception {
         // WHEN
         Person person = new Person(null, "juch", "pierre", "pierro", "0611111111",
                 "rue","juch.pierre@",LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
@@ -71,12 +71,10 @@ public class PersonTestDao {
     }
 
     @Test
-    public void shouldListPersonsByFirstname() throws Exception {
+    public void shouldListPersonsByFirstname() {
         // WHEN
         List<Person> persons = personDao.listPersonsByFirstname("FI%");
         // THEN
 
     }
-
-
 }
