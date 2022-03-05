@@ -11,6 +11,7 @@ import projectJava2.formIsen.person.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import projectJava2.formIsen.daos.PersonDao;
 
 public class formController {
 	@FXML
@@ -52,6 +53,8 @@ public class formController {
 		System.out.print("\n" + person.getEmail_address());
 		System.out.print("\n" + person.getAddress());
 		System.out.print("\n" + person.getBirth_date());
+		PersonDao personDao = new PersonDao();
+		personDao.addPerson(person);
 	}
 	
 	

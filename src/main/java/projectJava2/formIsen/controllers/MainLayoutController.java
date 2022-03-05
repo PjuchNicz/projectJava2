@@ -12,5 +12,9 @@ public class MainLayoutController {
 	public void gotoHome() {
 		App.showView("HomeScreen");
 	}
+	
+	public void gotoFormAdd() {
+		App.showView("Form");
+	}
 
 }
