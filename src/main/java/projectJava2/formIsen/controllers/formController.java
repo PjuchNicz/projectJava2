@@ -11,6 +11,7 @@ import projectJava2.formIsen.person.Person;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import projectJava2.formIsen.daos.PersonDao;
 
 public class formController {
@@ -34,6 +35,27 @@ public class formController {
 	
 	@FXML
 	public DatePicker birthdate;
+	
+	@FXML
+	public Text displayFirstname;
+	
+	@FXML
+	public Text displayLastname;
+	
+	@FXML
+	public Text displayNickname;
+	
+	@FXML
+	public Text displayTel;
+	
+	@FXML
+	public Text displayEmail;
+	
+	@FXML
+	public Text displayAddress;
+	
+	@FXML
+	public Text displayBirthdate;
 	
 	@FXML
 	public void handleLaunchButton() throws IOException {
@@ -85,5 +107,33 @@ public class formController {
 	
 	public LocalDate getBirthdate() {
 		return birthdate.getValue();
+	}
+	
+	public void displayTextFirstname() {
+		displayFirstname.setText(getTextFirstname());
+	}
+	
+	public void displayTextLastname() {
+		displayLastname.setText(getTextLastname());
+	}
+	
+	public void displayTextNickname() {
+		displayNickname.setText(getTextNickname());
+	}
+	
+	public void displayTextTel() {
+		displayTel.setText(getTextTel());
+	}
+	
+	public void displayTextAddress() {
+		displayAddress.setText(getTextAdress());
+	}
+	
+	public void displayTextEmail() {
+		displayEmail.setText(getTextEmail());
+	}
+	
+	public void displayTextBirthdate() {
+		displayBirthdate.setText(getBirthdate().toString());
 	}
 }
