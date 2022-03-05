@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:2.1
+FN:FirstName LastName
+N:FirstName;LastName
+TEL;CELL:0600000000
+ADR;TYPE=home:;;Rue;1 rue Rue;Pays;CodePostal
+EMAIL;INTERNET:adress@gmail.com
+BDAY:20151129
+UID:
+END:VCARD

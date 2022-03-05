@@ -5,8 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import projectJava2.formIsen.daos.PersonDao;
+import projectJava2.formIsen.person.Person;
 import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
+import projectJava2.formIsen.transport.VcardFactory;
 
 import java.io.IOException;
 
@@ -38,7 +41,11 @@ public class App extends Application {
     	//f.exportDataBase(".csv");
     	Import i = new Import();
     	i.reader();
-    	i.printList();
+    	VcardFactory vcardfactory = new VcardFactory();
+    	PersonDao personFactory = new PersonDao();
+    	for(Person p : personFactory.listPersons()) {
+    		vcardfactory.vcardCreator(p);
+    	}
     	//launch();
     }
 
