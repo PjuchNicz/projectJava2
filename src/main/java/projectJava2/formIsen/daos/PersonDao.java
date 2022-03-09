@@ -62,6 +62,7 @@ public class PersonDao {
     }
 
     public Person addPerson(String lastname, String firstname, String nickname, String phone_number, String address, String email_address, LocalDate birth_date) {
+        //TODO verif si personne existe déjà dans la BDD email_address
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "INSERT INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date)" + "VALUES(?,?,?,?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(

@@ -17,24 +17,25 @@ import projectJava2.formIsen.person.Person;
 public class Import {
 	String separator;
 	String file;
-	List<Person> personList = new ArrayList<Person>();
+	List<Person> personList = new ArrayList<>();
+
 	public Import(String file,String separator){
 		this.file = file;
 		this.separator = separator;
-		
 	}
+
 	public void reader() throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path path = Paths.get(projectDirectory).resolve(file);
 		BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		String line;
-		   while ((line = bufferedReader.readLine()) != null) {
-			   personList.add(stringToPerson(line));
-		   }
+		while ((line = bufferedReader.readLine()) != null) {
+			personList.add(stringToPerson(line));
+		}
 	}
 	public Person stringToPerson(String ligne){
 		String[] stringArray = ligne.split(separator);
-		Person personne = new Person(
+		return new Person(
 		Integer.parseInt(stringArray[0]),
 		stringArray[1],
 		stringArray[2],
@@ -43,11 +44,12 @@ public class Import {
 		stringArray[5],
 		stringArray[6],
 		LocalDate.parse(stringArray[7]));
-		return personne;
 	}
+
     public void printList() {
     	personList.forEach(p -> System.out.println(p.getFirstname()));
     }
+
     private void toDataBase() {
     	//TODO to data base ?
     }

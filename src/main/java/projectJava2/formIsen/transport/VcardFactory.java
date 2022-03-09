@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.person.Person;
 
 public class VcardFactory {
 
 	public VcardFactory() {
 	}
+
 	public String personToVCard(Person person) {
 		String text = "BEGIN:VCARD\r\nVERSION:4.0\r\n";
 		text += "UID:"+person.getId()+"\r\n";
@@ -40,74 +42,50 @@ public class VcardFactory {
 		return text;
 	}
 	public void vcardCreator(Person person) throws IOException {
-			String projectDirectory = System.getProperty("user.dir");
-			Path root = Paths.get(projectDirectory+"/vcard");
-			BufferedWriter bufferedWriter = Files.newBufferedWriter(root.resolve(person.getFirstname()+person.getLastname()+".vcf"), StandardCharsets.UTF_8);
-			try {
-				bufferedWriter.write(personToVCard(person));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			bufferedWriter.flush();
+		String projectDirectory = System.getProperty("user.dir");
+		Path root = Paths.get(projectDirectory+"/vcard");
+		BufferedWriter bufferedWriter = Files.newBufferedWriter(root.resolve(person.getFirstname()+person.getLastname()+".vcf"), StandardCharsets.UTF_8);
+		try {
+			bufferedWriter.write(personToVCard(person));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		bufferedWriter.flush();
 	}
+
 	public Person cardToPerson(String FirstName,String LastName) throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path root = Paths.get(projectDirectory+"/vcard");
 		Path path = root.resolve(FirstName+LastName+".vcf");
 		if(Files.exists(path)) {
 			BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-			
-			List<String> list=new ArrayList<String>(Arrays.asList(null,null,null,null,null,null,null,null));
-			String line;
-			   while ((line = bufferedReader.readLine()) != null) {
-				   String[] splitLineList = line.split(":");
-				   String type = splitLineList[0].split(";")[0];
-				   String value = splitLineList[splitLineList.length - 1];
-				   switch(type) {
-				   case "UID":
-				     list.set(0,value);
-				     break;
-				   case "N":
-					 String[] lastNameFirstName = value.split(";");
-					 list.set(1,lastNameFirstName[0]);
-					 list.set(2,lastNameFirstName[1]);
-				     break;
-				   case "FN":
-					     list.set(3,value);
-					     break;
-				   case "TEL":
-					     list.set(4,value);
-					     break;
-				   case "ADR":
-					     list.set(5,value.replace(";"," "));
-					     break;
-				   case "EMAIL":
-					     list.set(6,value);
-					     break;
-				   case "BDAY":
-					     list.set(7,value);
-					     break;
-				   default:
-					  break;
-				 }
-			   }  
-			System.out.println(list.toString());
-			Person personne = new Person(
-					Integer.parseInt(list.get(0)),
-					list.get(1),
-					list.get(2),
-					list.get(3),
-					list.get(4),
-					list.get(5),
-					list.get(6),
-					LocalDate.parse(list.get(7)));
-			return personne;
+			String line, lastname = null, firstname = null, nickname = null, phone_number = null, address = null, email_address = null;
+			int uid;
+			LocalDate birth_date = null;
+			while ((line = bufferedReader.readLine()) != null) {
+			   String[] splitLineList = line.split(":");
+			   String type = splitLineList[0].split(";")[0];
+			   String value = splitLineList[splitLineList.length - 1];
+			   switch(type) {
+				   case "UID" -> uid = Integer.parseInt(value);
+				   case "N" -> {
+					   String[] lastNameFirstName = value.split(";");
+					   lastname = lastNameFirstName[0];
+					   firstname = lastNameFirstName[1];
+				   }
+				   case "FN" -> nickname = value;
+				   case "TEL" -> phone_number = value;
+				   case "ADR" -> address = value.replace(";"," ");
+				   case "EMAIL" -> email_address = value;
+				   case "BDAY" -> birth_date = LocalDate.parse(value);
+			   }
+			}
+			PersonDao personDao = new PersonDao();
+			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date);
 		}
 		else {
 			System.out.println("Vcard : No such Vcard in vcard directory");
 			return null;
 		}
-		
-		
 	}
 }
