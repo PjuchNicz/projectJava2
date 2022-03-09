@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.HomeScreenController">
+   <children>
+      <Text layoutX="183.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue sur FormISEN !" textAlignment="CENTER" wrappingWidth="234.33935546875" AnchorPane.topAnchor="150.4970703125">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+   </children>
+</AnchorPane>

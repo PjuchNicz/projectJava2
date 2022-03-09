@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.formController">
+   <children>
+      <Text layoutX="60.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new person" textAlignment="CENTER" wrappingWidth="174.0" AnchorPane.topAnchor="46.734375">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Text>
+      <TextField fx:id="firstname" layoutX="104.0" layoutY="87.0" onKeyTyped="#displayTextFirstname" promptText="Firstname" />
+      <TextField fx:id="lastname" layoutX="104.0" layoutY="122.0" onKeyPressed="#displayTextLastname" promptText="Lastname" />
+      <TextField fx:id="nickname" layoutX="104.0" layoutY="157.0" onInputMethodTextChanged="#displayTextNickname" onKeyPressed="#displayTextNickname" promptText="Nickname" />
+      <TextField fx:id="tel" layoutX="104.0" layoutY="192.0" onInputMethodTextChanged="#displayTextTel" onKeyPressed="#displayTextTel" promptText="Phone number" />
+      <TextField fx:id="email" layoutX="104.0" layoutY="228.0" onInputMethodTextChanged="#displayTextEmail" onKeyPressed="#displayTextEmail" promptText="E-mail" />
+      <TextField fx:id="address" layoutX="104.0" layoutY="263.0" onInputMethodTextChanged="#displayTextAddress" onKeyPressed="#displayTextAddress" promptText="Address" />
+      <DatePicker fx:id="birthdate" layoutX="97.0" layoutY="301.0" onInputMethodTextChanged="#displayTextBirthdate" onKeyPressed="#displayTextBirthdate" promptText="Birth date" />
+      <Button layoutX="407.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="Send" />
+      <Text layoutX="34.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname" />
+      <Text layoutX="35.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname" />
+      <Text layoutX="34.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" />
+      <Text layoutX="21.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" />
+      <Text layoutX="43.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
+      <Text layoutX="42.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+      <Text layoutX="34.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" />
+      <Text layoutX="346.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your card" textAlignment="CENTER" wrappingWidth="174.0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="displayFirstname" layoutX="333.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname">
+      <font>
+            <Font name="System Bold" size="13.0" />
+      </font>
+      </Text>
+      <Text fx:id="displayLastname" layoutX="399.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
+      <font>
+            <Font name="System Bold" size="13.0" />
+      </font>
+      </Text>
+      <Text fx:id="displayNickname" layoutX="407.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" />
+      <Text fx:id="displayTel" layoutX="394.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" />
+      <Text fx:id="displayEmail" layoutX="417.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
+      <Text fx:id="displayAddress" layoutX="411.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+      <Text fx:id="displayBirthdate" layoutX="407.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" />
+   </children>
+</AnchorPane>
