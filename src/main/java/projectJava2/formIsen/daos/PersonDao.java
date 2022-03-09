@@ -36,6 +36,7 @@ public class PersonDao {
 
     public List<Person> listPersonsByFirstname(String firstname) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         //TODO listPersonByFirstname
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
@@ -46,6 +47,8 @@ public class PersonDao {
                     while (results.next()) {
                         System.out.println(results.getString("firstname"));
 =======
+=======
+>>>>>>> Stashed changes
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "SELECT * FROM person WHERE firstname=?";
@@ -62,6 +65,9 @@ public class PersonDao {
                                 results.getString("email_address"),
                                 results.getDate("birth_date").toLocalDate());
                         listOfPersons.add(person);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                     }
                 }

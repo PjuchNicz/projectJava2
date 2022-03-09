@@ -50,7 +50,11 @@ public class PersonTestDao {
 
     @Test
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public void shouldAddPerson() throws Exception {
+=======
+    public void shouldListPersonsByFirstname() {
+>>>>>>> Stashed changes
 =======
     public void shouldListPersonsByFirstname() {
 >>>>>>> Stashed changes
@@ -82,6 +86,7 @@ public class PersonTestDao {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     @Test
     public void shouldListPersonsByFirstname() {
         // WHEN
@@ -91,6 +96,16 @@ public class PersonTestDao {
     public void shouldModifyPerson() throws Exception {
         // TODO shouldModifyPersons
     }
+=======
+    public void shouldModifyPerson() throws Exception {
+        // TODO shouldModifyPersons
+    }
+
+    public void shouldDeletePerson() throws Exception {
+        // TODO shouldDeletePerson
+    }
+
+>>>>>>> Stashed changes
 
     public void shouldDeletePerson() throws Exception {
         // TODO shouldDeletePerson
