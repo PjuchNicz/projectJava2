@@ -2,6 +2,7 @@ package projectJava2.formIsen.daos;
 
 import projectJava2.formIsen.person.Person;
 
+import javax.management.RuntimeErrorException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -62,9 +63,8 @@ public class PersonDao {
     }
 
     public Person addPerson(String lastname, String firstname, String nickname, String phone_number, String address, String email_address, LocalDate birth_date) {
-        //TODO verif si personne existe déjà dans la BDD email_address
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "INSERT INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date)" + "VALUES(?,?,?,?,?,?,?)";
+            String sqlQuery = "INSERT OR IGNORE INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date)" + "VALUES(?,?,?,?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(
                     sqlQuery, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, lastname);
@@ -74,8 +74,14 @@ public class PersonDao {
                 statement.setString(5, address);
                 statement.setString(6, email_address);
                 statement.setDate(7, Date.valueOf(birth_date));
+
                 statement.executeUpdate();
                 ResultSet ids = statement.getGeneratedKeys();
+                if (ids.getInt(1) == 0) {
+                    //TODO Trouver un moyen d'avoir un répertoire des conflits
+                    System.out.println("La personne existe déjà dans la bdd");
+                    return null;
+                }
                 if (ids.next()) {
                     return new Person(ids.getInt(1),lastname, firstname, nickname, phone_number, address, email_address, birth_date);
                 }
@@ -88,7 +94,7 @@ public class PersonDao {
 
     public void modifyPerson(Person person) {
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "UPDATE book set lastname=?, firstname=?, nickname=?, phone_number=?, address=?," +
+            String sqlQuery = "UPDATE person set lastname=?, firstname=?, nickname=?, phone_number=?, address=?," +
                     "email_address=?, birth_date=? WHERE idperson=?";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, person.getLastname());
@@ -106,8 +112,16 @@ public class PersonDao {
         }
     }
 
-    public Person deletePerson(Person person) {
-        //TODO deletePerson
-        throw new RuntimeException("Method is not yet implemented");
+    public void deletePerson(Person person) {
+        try (Connection connection = getDataSource().getConnection()) {
+            try (PreparedStatement statement =
+                         connection.prepareStatement("DELETE FROM PERSON WHERE idperson=?")) {
+                statement.setInt(1, person.getId());
+                statement.executeUpdate();
+            }
+        }catch (SQLException e) {
+            // Manage Exception
+            e.printStackTrace();
+        }
     }
 }

@@ -41,6 +41,7 @@ public class VcardFactory {
 		text += "END:VCARD";
 		return text;
 	}
+
 	public void vcardCreator(Person person) throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path root = Paths.get(projectDirectory+"/vcard");

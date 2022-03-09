@@ -95,6 +95,20 @@ public class Person {
         this.birth_date = birth_date;
     }
 
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += " [id : " + idperson;
+        string += "| lastname : " + lastname;
+        string += "| firstname : " + firstname;
+        string += "| nickname : " + nickname;
+        string += "\nphone_number : " + phone_number;
+        string += "| address : " + address;
+        string += "| email_address : " + email_address;
+        string += "| birth_date : " + birth_date + "]";
+        return string;
+    }
+
     public String toString(String separator) {
     	String formatedString = String.join(separator,
     	idperson.toString(),
