@@ -60,23 +60,16 @@ public class formController {
 	@FXML
 	public void handleLaunchButton() throws IOException {
 		// Here we make use of our new method allowing us to change views inside the main Parent		
-		Person person = new Person();
-		person.setFirstname(getTextFirstname());
-		person.setLastname(getTextLastname());
-		person.setNickname(getTextNickname());
-		person.setPhone_number(getTextTel());
-		person.setEmail_address(getTextEmail());
-		person.setAddress(getTextAdress());
-		person.setBirth_date(getBirthdate());
-		System.out.print("\n" + person.getFirstname());
-		System.out.print("\n" + person.getLastname());
-		System.out.print("\n" + person.getNickname());
-		System.out.print("\n" + person.getPhone_number());
-		System.out.print("\n" + person.getEmail_address());
-		System.out.print("\n" + person.getAddress());
-		System.out.print("\n" + person.getBirth_date());
+		String firstname = getTextFirstname();
+		String lastname = (getTextLastname());
+		String nickname =getTextNickname();
+		String phone_number =getTextTel();
+		String email_address = getTextEmail();
+		String address = getTextAdress();
+		LocalDate birth_date =getBirthdate();
+
 		PersonDao personDao = new PersonDao();
-		personDao.addPerson(person);
+		personDao.addPerson(lastname,firstname,nickname,phone_number,address,email_address,birth_date);
 	}
 	
 	
