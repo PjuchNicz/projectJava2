@@ -10,10 +10,7 @@ import projectJava2.formIsen.person.Person;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class PersonTestDao {
@@ -52,11 +49,21 @@ public class PersonTestDao {
     }
 
     @Test
-    public void shouldAddFilm() throws Exception {
+    public void shouldListPersonsByFirstname() {
         // WHEN
-        Person person = new Person(null, "juch", "pierre", "pierro", "0611111111",
-                "rue","juch.pierre@",LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
-        personDao.addPerson(person);
+        List<Person> persons = personDao.listPersonsByFirstname("FirstName");
+        // THEN
+        assertThat(persons).hasSize(1);
+        assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date")
+                .containsOnly(tuple(1, "LastName", "FirstName", "NickName", "0600000000", "1 rue Rue", "adress@gmail.com", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate()));
+    }
+
+
+    @Test
+    public void shouldAddPerson() throws Exception {
+        // WHEN
+        Person newPerson = personDao.addPerson("juch", "pierre", "pierro", "0611111111",
+                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
         // THEN
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement statement = connection.createStatement();
@@ -70,5 +77,12 @@ public class PersonTestDao {
         connection.close();
     }
 
+    public void shouldModifyPerson() throws Exception {
+        // TODO shouldModifyPersons
+    }
+
+    public void shouldDeletePerson() throws Exception {
+        // TODO shouldDeletePerson
+    }
 
 }
