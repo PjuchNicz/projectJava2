@@ -94,9 +94,8 @@ public class Person {
     public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-    public List<String> toStringList() {
-    	List<String> listeAttribut = new ArrayList<>();
-    	Collections.addAll(listeAttribut,
+    public String toString(String separator) {
+    	String formatedString = String.join(separator,
     	idperson.toString(),
         lastname,
         firstname,
@@ -105,7 +104,7 @@ public class Person {
         address,
         email_address,
         birth_date.toString());
-    	return listeAttribut;
+    	return formatedString;
     }
 } 
 

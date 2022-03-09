@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import projectJava2.formIsen.daos.PersonDao;
-import projectJava2.formIsen.person.Person;
 import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
 import projectJava2.formIsen.transport.VcardFactory;
@@ -37,15 +35,19 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-    	Export f = new Export();
-    	//f.exportDataBase(".csv");
-    	Import i = new Import();
+    	Export f = new Export("export.csv",",");
+    	f.exportDataBase();
+    	Import i = new Import("export.csv",",");
     	i.reader();
+    	i.printList();
     	VcardFactory vcardfactory = new VcardFactory();
-    	PersonDao personFactory = new PersonDao();
-    	for(Person p : personFactory.listPersons()) {
-    		vcardfactory.vcardCreator(p);
-    	}
+    	vcardfactory.cardToPerson("Léo","Ada");
+    	
+    	
+    	//PersonDao personFactory = new PersonDao();
+    	//for(Person p : personFactory.listPersons()) {
+    	//	vcardfactory.vcardCreator(p);
+    	//}
     	//launch();
     }
 

@@ -15,14 +15,17 @@ import java.util.List;
 import projectJava2.formIsen.person.Person;
 
 public class Import {
+	String separator;
+	String file;
 	List<Person> personList = new ArrayList<Person>();
-	public Import(){
+	public Import(String file,String separator){
+		this.file = file;
+		this.separator = separator;
 		
 	}
 	public void reader() throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
-		Path root = Paths.get(projectDirectory);
-		Path path = root.resolve("test.csv");
+		Path path = Paths.get(projectDirectory).resolve(file);
 		BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		String line;
 		   while ((line = bufferedReader.readLine()) != null) {
@@ -30,7 +33,7 @@ public class Import {
 		   }
 	}
 	public Person stringToPerson(String ligne){
-		String[] stringArray = ligne.split(",");
+		String[] stringArray = ligne.split(separator);
 		Person personne = new Person(
 		Integer.parseInt(stringArray[0]),
 		stringArray[1],
@@ -45,7 +48,9 @@ public class Import {
     public void printList() {
     	personList.forEach(p -> System.out.println(p.getFirstname()));
     }
-
+    private void toDataBase() {
+    	//TODO to data base ?
+    }
 
 	
 }
