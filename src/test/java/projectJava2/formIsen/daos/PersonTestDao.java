@@ -49,15 +49,7 @@ public class PersonTestDao {
     }
 
     @Test
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public void shouldAddPerson() throws Exception {
-=======
     public void shouldListPersonsByFirstname() {
->>>>>>> Stashed changes
-=======
-    public void shouldListPersonsByFirstname() {
->>>>>>> Stashed changes
         // WHEN
         List<Person> persons = personDao.listPersonsByFirstname("FirstName");
         // THEN
@@ -85,18 +77,6 @@ public class PersonTestDao {
         connection.close();
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    @Test
-    public void shouldListPersonsByFirstname() {
-        // WHEN
-        List<Person> persons = personDao.listPersonsByFirstname("FI%");
-        // THEN
-=======
-    public void shouldModifyPerson() throws Exception {
-        // TODO shouldModifyPersons
-    }
-=======
     public void shouldModifyPerson() throws Exception {
         // TODO shouldModifyPersons
     }
@@ -105,13 +85,4 @@ public class PersonTestDao {
         // TODO shouldDeletePerson
     }
 
->>>>>>> Stashed changes
-
-    public void shouldDeletePerson() throws Exception {
-        // TODO shouldDeletePerson
-    }
-
->>>>>>> Stashed changes
-
-    }
 }
