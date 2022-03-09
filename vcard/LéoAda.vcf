@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:2
+FN:Léo Ada
+N:Léo;Ada
+TEL;CELL:0781436035
+ADR;TYPE=home:;;Rue;Boulogne;Pays;CodePostal
+EMAIL;INTERNET:leo.arnoult-de-almeida@student.junia.com
+BDAY:20220228
+RELATED;TYPE=contact:mailto:mael.nivel@student.junia.com
+END:VCARD
