@@ -1,12 +1,15 @@
 package projectJava2.formIsen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import projectJava2.formIsen.transport.Import;
 
 /**
  * @author Pierre Juchniewicz
@@ -55,7 +58,28 @@ public class App extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch();
+		//launch();
+		Import i = new Import("export.csv",",");
+		try {
+			i.reader();
+			//i.printList();
+		    //i.getPersonList().forEach(p -> System.out.println(p.getFriend_list()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<String> list = new ArrayList<String>();
+		list.add("lol1");
+		list.add("mdr2");
+		list.add("ptdr3");
+		String sList = list.toString();
+		System.out.println(sList);
+		sList.substring(1, sList.length() - 1);
+		String[] list2 = sList.substring(1, sList.length() - 1).split(",");
+		for (String y : list2) {
+			System.out.println(y);
+		}
 	}
 
 	/**

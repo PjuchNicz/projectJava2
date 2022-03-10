@@ -30,7 +30,7 @@ public class Import {
 		BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		String line;
 		while ((line = bufferedReader.readLine()) != null) {
-			personList.add(stringToPerson(line));
+			getPersonList().add(stringToPerson(line));
 		}
 	}
 	public Person stringToPerson(String ligne){
@@ -47,12 +47,16 @@ public class Import {
 	}
 
     public void printList() {
-    	personList.forEach(p -> System.out.println(p.getFirstname()));
+    	getPersonList().forEach(p -> System.out.println(p.getFirstname()));
     }
 
     private void toDataBase() {
     	//TODO to data base ?
     }
+
+	public List<Person> getPersonList() {
+		return personList;
+	}
 
 	
 }

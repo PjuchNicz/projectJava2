@@ -15,6 +15,7 @@ public class Person {
     private String address;
     private String email_address;
     private LocalDate birth_date;
+    private List<String> friend_list;
 
     public Person() {
     }
@@ -29,6 +30,7 @@ public class Person {
         this.address = address;
         this.email_address = email_address;
         this.birth_date = birth_date;
+        this.friend_list = new ArrayList<String>();
     }
 
     public Integer getId() {
@@ -94,7 +96,13 @@ public class Person {
     public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-
+    
+    public void addFriend(Person friend) {
+    	friend_list.add(friend.getEmail_address());
+    }
+    public List<String> getFriend_list(){
+    	return friend_list;
+    }
     public String toString(String separator) {
     	String formatedString = String.join(separator,
     	idperson.toString(),
