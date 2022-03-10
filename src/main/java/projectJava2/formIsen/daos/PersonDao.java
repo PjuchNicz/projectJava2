@@ -11,6 +11,10 @@ import static projectJava2.formIsen.daos.DataSourceFactory.getDataSource;
 
 public class PersonDao {
 
+    /**
+     * SELECT * FROM person
+     * @return List<Person> : liste avec toutes les {@link Person}
+     */
     public List<Person> listPersons() {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
@@ -35,6 +39,11 @@ public class PersonDao {
         return listOfPersons;
     }
 
+    /**
+     * SELECT * FROM person WHERE firstname=?
+     * @param firstname : firstname de la personne recherchée
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
     public List<Person> listPersonsByFirstname(String firstname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
@@ -61,6 +70,11 @@ public class PersonDao {
         return listOfPersons;
     }
 
+    /**
+     * SELECT * FROM person WHERE email_address=?
+     * @param email_address : email_address de la personne recherchée
+     * @return Person : {@link Person} UNIQUE trouvée
+     */
     public Person personByEmailAddress(String email_address) {
         Person person = new Person();
         try (Connection connection = getDataSource().getConnection()) {
@@ -84,6 +98,13 @@ public class PersonDao {
         return person;
     }
 
+    /**
+     * SELECT * FROM person WHERE lastname=? AND firstname=?
+     * Si l'une des caractéristiques n'est pas connue : Utiliser {@link #listPersonsByLastnameOrFirstname(String, String)}
+     * @param lastname : lastname de la personne recherchée
+     * @param firstname : firstname de la personne recherchée
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
     public List<Person> listPersonsByLastnameAndFirstname(String lastname, String firstname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
@@ -145,6 +166,19 @@ public class PersonDao {
         return listOfPersons;
     }
 
+    /**
+     * Ajoute dans la bdd une nouvelle personne uniquement si celle si n'est pas déjà présente dans la BDD
+     * Verification sur email_address + phone_number étant unique
+     * INSERT OR IGNORE INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date)
+     * @param lastname : lastname de la personne recherchée
+     * @param firstname : firstname de la personne recherchée
+     * @param nickname : nickname de la personne recherchée
+     * @param phone_number : phone_number de la personne recherchée
+     * @param address : address de la personne recherchée
+     * @param email_address : email_address de la personne recherchée
+     * @param birth_date : birth_date de la personne recherchée
+     * @return Person : {@link Person} ajoutée
+     */
     public Person addPerson(String lastname, String firstname, String nickname, String phone_number, String address, String email_address, LocalDate birth_date) {
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "INSERT OR IGNORE INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date)" + "VALUES(?,?,?,?,?,?,?)";
@@ -175,6 +209,12 @@ public class PersonDao {
         return null;
     }
 
+    /**
+     * Modifie les attributs d'une personne existante dans la BDD
+     * La recherche se fait avec idperson
+     * La personne à modifier doit avoir un idperson valide et existant dans la BDD
+     * @param person : {@link Person} à modifier
+     */
     public void modifyPerson(Person person) {
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "UPDATE person set lastname=?, firstname=?, nickname=?, phone_number=?, address=?," +
@@ -195,6 +235,12 @@ public class PersonDao {
         }
     }
 
+    /**
+     * Supprimer une personne dans la BDD
+     * La recherche se fait avec idperson
+     * La personne à supprimer doit avoir un idperson valide et existant dans la BDD
+     * @param person : {@link Person} à supprimer
+     */
     public void deletePerson(Person person) {
         try (Connection connection = getDataSource().getConnection()) {
             try (PreparedStatement statement =
