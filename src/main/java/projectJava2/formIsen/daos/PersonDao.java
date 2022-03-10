@@ -36,12 +36,95 @@ public class PersonDao {
     }
 
     public List<Person> listPersonsByFirstname(String firstname) {
-        //TODO listPersonByFirstname
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "SELECT * FROM person WHERE firstname=?";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, firstname);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        Person person = new Person(results.getInt("idperson"),
+                                results.getString("lastname"),
+                                results.getString("firstname"),
+                                results.getString("nickname"),
+                                results.getString("phone_number"),
+                                results.getString("address"),
+                                results.getString("email_address"),
+                                results.getDate("birth_date").toLocalDate());
+                        listOfPersons.add(person);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
+    }
+
+    public Person personByEmailAddress(String email_address) {
+        Person person = new Person();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE email_address=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, email_address);
+                try (ResultSet results = statement.executeQuery()) {
+                    person.setId(results.getInt("idperson"));
+                    person.setLastname(results.getString("lastname"));
+                    person.setFirstname(results.getString("firstname"));
+                    person.setNickname(results.getString("nickname"));
+                    person.setPhone_number(results.getString("phone_number"));
+                    person.setAddress(results.getString("address"));
+                    person.setEmail_address(results.getString("email_address"));
+                    person.setBirth_date(results.getDate("birth_date").toLocalDate());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    public List<Person> listPersonsByLastnameAndFirstname(String lastname, String firstname) {
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE lastname=? AND firstname=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, lastname);
+                statement.setString(2, firstname);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        Person person = new Person(results.getInt("idperson"),
+                                results.getString("lastname"),
+                                results.getString("firstname"),
+                                results.getString("nickname"),
+                                results.getString("phone_number"),
+                                results.getString("address"),
+                                results.getString("email_address"),
+                                results.getDate("birth_date").toLocalDate());
+                        listOfPersons.add(person);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
+    }
+
+    /**
+     * Trouve une personne avec son firstname ou son lastname.
+     * Si l'une des caractéristiques n'est pas connue : Mettre null
+     * @param lastname : lastname de la personne recherchée
+     * @param firstname : firstname de la personne recherchée
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
+    public List<Person> listPersonsByLastnameOrFirstname(String lastname, String firstname) {
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE lastname=? OR firstname=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, lastname);
+                statement.setString(2, firstname);
                 try (ResultSet results = statement.executeQuery()) {
                     while (results.next()) {
                         Person person = new Person(results.getInt("idperson"),
@@ -98,7 +181,7 @@ public class PersonDao {
                     "email_address=?, birth_date=? WHERE idperson=?";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, person.getLastname());
-                statement.setString(2, person.getLastname());
+                statement.setString(2, person.getFirstname());
                 statement.setString(3, person.getNickname());
                 statement.setString(4, person.getPhone_number());
                 statement.setString(5, person.getAddress());
