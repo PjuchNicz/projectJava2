@@ -43,7 +43,8 @@ public class Import {
 		stringArray[4],
 		stringArray[5],
 		stringArray[6],
-		LocalDate.parse(stringArray[7]));
+		LocalDate.parse(stringArray[7]),
+		stringArray[8].substring(1, stringArray[8].length() - 1).split(","));
 	}
 
     public void printList() {

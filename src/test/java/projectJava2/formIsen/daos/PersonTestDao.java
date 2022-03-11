@@ -30,10 +30,11 @@ public class PersonTestDao {
                         + "  phone_number VARCHAR(15) NULL,\r\n"
                         + "  address VARCHAR(200) NULL,\r\n"
                         + "  email_address VARCHAR(150) NULL,\r\n"
-                        + "  birth_date DATE NULL);");
+                        + "  birth_date DATE NULL,\r\n"
+                        + "  friend_list VARCHAR(200) NULL);");
         stmt.executeUpdate("DELETE FROM person");
-        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
-                + "VALUES (1, 'LastName', 'FirstName', 'NickName', '0600000000', '1 rue Rue', 'adress@gmail.com','2015-11-29 00:00:00.000')");
+        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date, friend_list) "
+                + "VALUES (1, 'LastName', 'FirstName', 'NickName', '0600000000', '1 rue Rue', 'adress@gmail.com','2015-11-29 00:00:00.000','[mael.nivel@student.junia.com,leolol]')");
         stmt.close();
         connection.close();
     }
@@ -63,7 +64,7 @@ public class PersonTestDao {
     public void shouldAddPerson() throws Exception {
         // WHEN
         Person newPerson = personDao.addPerson("juch", "pierre", "pierro", "0611111111",
-                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
+                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate(),null);
         // THEN
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement statement = connection.createStatement();

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
 
 /**
@@ -59,6 +60,13 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		//launch();
+		Export a = new Export("export.csv",",");
+		try {
+			a.exportDataBase();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Import i = new Import("export.csv",",");
 		try {
 			i.reader();
@@ -73,13 +81,9 @@ public class App extends Application {
 		list.add("lol1");
 		list.add("mdr2");
 		list.add("ptdr3");
-		String sList = list.toString();
+		String sList = list.toString().replaceAll("\\s","");
 		System.out.println(sList);
-		sList.substring(1, sList.length() - 1);
-		String[] list2 = sList.substring(1, sList.length() - 1).split(",");
-		for (String y : list2) {
-			System.out.println(y);
-		}
+		
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class formController {
 		LocalDate birth_date =getBirthdate();
 
 		PersonDao personDao = new PersonDao();
-		personDao.addPerson(lastname,firstname,nickname,phone_number,address,email_address,birth_date);
+		personDao.addPerson(lastname,firstname,nickname,phone_number,address,email_address,birth_date,null);
 	}
 	
 	

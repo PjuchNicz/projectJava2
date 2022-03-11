@@ -38,6 +38,10 @@ public class VcardFactory {
 		text += "EMAIL;INTERNET:"+person.getEmail_address()+"\r\n";
 		DateTimeFormatter fmt1 = DateTimeFormatter.BASIC_ISO_DATE;
 		text += "BDAY:"+person.getBirth_date().format(fmt1)+"\r\n";
+		for(String p : person.getFriend_list()) {
+			text += "RELATED;TYPE=contact:mailto:"+p;
+		}
+		
 		text += "END:VCARD";
 		return text;
 	}
@@ -81,8 +85,8 @@ public class VcardFactory {
 			   }
 			}
 			PersonDao personDao = new PersonDao();
-			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date);
-		}
+			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date,null);
+		} //TODO case related
 		else {
 			System.out.println("Vcard : No such Vcard in vcard directory");
 			return null;

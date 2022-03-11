@@ -21,11 +21,13 @@ public class Export {
 		this.filename = file.split("\\.")[0];
 		this.extension = file.split("\\.")[1];
 		this.separator = separator;
-		Person leo = new Person(2,"Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now());
-		Person mael = new Person(3,"Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now());
-		//PersonDao dao = new PersonDao();
-		//dao.addPerson(leo);
-		//dao.addPerson(mael);		
+
+
+		String[] leo_friend = {"mael.nivel@student.junia.com","a"};
+		String[] mael_friend = {"leo.arnoult-de-almeidal@student.junia.com","b"};
+		PersonDao dao = new PersonDao();
+		Person leo = dao.addPerson("Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now(),leo_friend);
+		Person mael = dao.addPerson("Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now(),mael_friend);		
     }
 	
 	

@@ -2,6 +2,7 @@ package projectJava2.formIsen.person;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Person {
     }
 
     public Person(Integer idperson, String lastname, String firstname, String nickname, String phone_number, String address,
-                  String email_address, LocalDate birth_date) {
+                  String email_address, LocalDate birth_date,String[] friend_list) {
         this.idperson = idperson;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -30,7 +31,7 @@ public class Person {
         this.address = address;
         this.email_address = email_address;
         this.birth_date = birth_date;
-        this.friend_list = new ArrayList<String>();
+        this.friend_list = new ArrayList<String>(Arrays.asList(friend_list));
     }
 
     public Integer getId() {
@@ -100,8 +101,8 @@ public class Person {
     public void addFriend(Person friend) {
     	friend_list.add(friend.getEmail_address());
     }
-    public List<String> getFriend_list(){
-    	return friend_list;
+    public String[] getFriend_list(){
+    	return (String[]) friend_list.toArray();
     }
     public String toString(String separator) {
     	String formatedString = String.join(separator,
@@ -112,7 +113,8 @@ public class Person {
         phone_number,
         address,
         email_address,
-        birth_date.toString());
+        birth_date.toString(),
+    	friend_list.toString());
     	return formatedString;
     }
 } 
