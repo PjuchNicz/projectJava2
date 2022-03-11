@@ -44,12 +44,16 @@ public class Export {
 		List<Person> listePersons = dao.listPersons();
 		if(extension.equals("txt") || extension.equals("csv") ) {
 			List<String> listestring = new ArrayList<String>();
-			for(Person p : listePersons) { //Pour tout les utilisateurs mettre la version string dans la liste
+			for(Person p : listePersons) {
 				listestring.add(p.toString(separator));
 			}
 			writeFile(listestring);
 		}
 		else if(extension.equals("vcf")) {
+			VcardFactory v = new VcardFactory();
+			for(Person p : listePersons) {
+				v.vcardCreator(p);
+			}
 			
 		}
 		else {

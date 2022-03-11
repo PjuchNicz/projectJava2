@@ -1,11 +1,12 @@
 BEGIN:VCARD
 VERSION:4.0
-UID:urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6
-FN:Mael Nivel
-N:Mael;Nivel
+UID:11
+FN:Nivel Mael
+N:Nivel;Mael
 TEL;CELL:0646627429
-ADR;TYPE=home:;;Rue;Arras;Pays;CodePostal
-EMAIL;INTERNET:mael.nivel@student.junia.com
-BDAY:20220228
-RELATED;TYPE=friend:urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf7
+ADR;TYPE=home:;;Rue;  Rue Arras Pays CodePostal;Pays;CodePostal
+EMAIL:mael.nivel@student.junia.com
+BDAY:20220311
+RELATED;TYPE=contact:mailto:leo.arnoult-de-almeida@student.junia.com
+RELATED;TYPE=contact:mailto:b
 END:VCARD

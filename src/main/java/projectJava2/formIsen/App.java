@@ -14,6 +14,7 @@ import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.person.Person;
 import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
+import projectJava2.formIsen.transport.VcardFactory;
 
 /**
  * @author Pierre Juchniewicz
@@ -69,20 +70,29 @@ public class App extends Application {
 //		Person leo = dao.addPerson("Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now(),leo_friend);
 //		Person mael = dao.addPerson("Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now(),mael_friend);	
 //		
-//		Export e = new Export("export.csv",";");
+//		Export e = new Export("export.vcf",";");
 //		try {
 //			e.exportDataBase();
 //		} catch (IOException e1) {
 //			e1.printStackTrace();
 //		}
-		
-		Import i = new Import("export.csv",";");
-		try {
-			i.importDataBase();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
+//		VcardFactory v = new VcardFactory();
+//		
+//		try {
+//			v.cardToPerson("Léo","Ada");
+//			v.cardToPerson("Mael","Nivel");
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		Import i = new Import("export.csv",";");
+//		try {
+//			i.importDataBase();
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+//		
 	}
 
 	/**
