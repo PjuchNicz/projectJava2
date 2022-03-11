@@ -20,14 +20,7 @@ public class Export {
 	public Export(String file,String separator) {
 		this.filename = file.split("\\.")[0];
 		this.extension = file.split("\\.")[1];
-		this.separator = separator;
-
-
-		String[] leo_friend = {"mael.nivel@student.junia.com","a"};
-		String[] mael_friend = {"leo.arnoult-de-almeidal@student.junia.com","b"};
-		PersonDao dao = new PersonDao();
-		Person leo = dao.addPerson("Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now(),leo_friend);
-		Person mael = dao.addPerson("Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now(),mael_friend);		
+		this.separator = separator;	
     }
 	
 	

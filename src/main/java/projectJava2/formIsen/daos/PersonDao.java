@@ -25,7 +25,7 @@ public class PersonDao {
                                 results.getString("address"),
                                 results.getString("email_address"),
                                 results.getDate("birth_date").toLocalDate(),
-                                results.getString("friend_list").substring(1, results.getString("friend_list").length() - 1).split(",")
+                                results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(",")
                         		);
                         listOfPersons.add(person);
                     }
@@ -54,7 +54,7 @@ public class PersonDao {
                                 results.getString("address"),
                                 results.getString("email_address"),
                                 results.getDate("birth_date").toLocalDate(),
-                                results.getString("friend_list").substring(1, results.getString("friend_list").length() - 1).split(",")
+                                results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(",")
                         		);
                         listOfPersons.add(person);
                     }
@@ -67,7 +67,6 @@ public class PersonDao {
     }
 
     public Person addPerson(String lastname, String firstname, String nickname, String phone_number, String address, String email_address, LocalDate birth_date, String[] friend_list) {
-        //TODO verif si personne existe déjà dans la BDD email_address
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "INSERT INTO person(lastname,firstname,nickname,phone_number,address,email_address,birth_date,friend_list)" + "VALUES(?,?,?,?,?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(

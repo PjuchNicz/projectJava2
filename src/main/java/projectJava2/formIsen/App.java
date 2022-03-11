@@ -1,6 +1,7 @@
 package projectJava2.formIsen;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import projectJava2.formIsen.daos.PersonDao;
+import projectJava2.formIsen.person.Person;
 import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
 
@@ -60,29 +63,25 @@ public class App extends Application {
 
 	public static void main(String[] args) {
 		//launch();
-		Export a = new Export("export.csv",",");
+//		String[] leo_friend = {"mael.nivel@student.junia.com","a"};
+//		String[] mael_friend = {"leo.arnoult-de-almeida@student.junia.com","b"};
+//		PersonDao dao = new PersonDao();
+//		Person leo = dao.addPerson("Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now(),leo_friend);
+//		Person mael = dao.addPerson("Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now(),mael_friend);	
+//		
+//		Export e = new Export("export.csv",";");
+//		try {
+//			e.exportDataBase();
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+		
+		Import i = new Import("export.csv",";");
 		try {
-			a.exportDataBase();
+			i.importDataBase();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Import i = new Import("export.csv",",");
-		try {
-			i.reader();
-			//i.printList();
-		    //i.getPersonList().forEach(p -> System.out.println(p.getFriend_list()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		List<String> list = new ArrayList<String>();
-		list.add("lol1");
-		list.add("mdr2");
-		list.add("ptdr3");
-		String sList = list.toString().replaceAll("\\s","");
-		System.out.println(sList);
 		
 	}
 

@@ -102,7 +102,7 @@ public class Person {
     	friend_list.add(friend.getEmail_address());
     }
     public String[] getFriend_list(){
-    	return (String[]) friend_list.toArray();
+    	return friend_list.toArray(new String[0]);
     }
     public String toString(String separator) {
     	String formatedString = String.join(separator,
@@ -114,7 +114,7 @@ public class Person {
         address,
         email_address,
         birth_date.toString(),
-    	friend_list.toString());
+        Arrays.toString(getFriend_list()));
     	return formatedString;
     }
 } 

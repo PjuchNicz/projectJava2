@@ -64,6 +64,7 @@ public class VcardFactory {
 		if(Files.exists(path)) {
 			BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 			String line, lastname = null, firstname = null, nickname = null, phone_number = null, address = null, email_address = null;
+			List<String> friend_list = new ArrayList<String>();
 			int uid;
 			LocalDate birth_date = null;
 			while ((line = bufferedReader.readLine()) != null) {
@@ -82,11 +83,12 @@ public class VcardFactory {
 				   case "ADR" -> address = value.replace(";"," ");
 				   case "EMAIL" -> email_address = value;
 				   case "BDAY" -> birth_date = LocalDate.parse(value);
+				   case "RELATED" -> friend_list.add(value);
 			   }
 			}
 			PersonDao personDao = new PersonDao();
-			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date,null);
-		} //TODO case related
+			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date,friend_list.toArray(new String[0]));
+		}
 		else {
 			System.out.println("Vcard : No such Vcard in vcard directory");
 			return null;
