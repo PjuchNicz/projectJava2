@@ -2,6 +2,7 @@ package projectJava2.formIsen.daos;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
+import static projectJava2.formIsen.daos.DataSourceFactory.initDb;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,22 +21,10 @@ public class PersonTestDao {
     private PersonDao personDao = new PersonDao();
 
     @Before
-    public void initDb() throws Exception {
+    public void initDbTest() throws Exception {
+        initDb();
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate(
-                """
-                        CREATE TABLE IF NOT EXISTS person (\r
-                          idperson INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r
-                          lastname VARCHAR(45) NOT NULL,\r
-                          firstname VARCHAR(45) NOT NULL,\r
-                          nickname VARCHAR(45) NOT NULL,\r
-                          phone_number VARCHAR(15) NULL,\r
-                          address VARCHAR(200) NULL,\r
-                          email_address VARCHAR(150) NULL,\r
-                          birth_date DATE NULL,\r
-                          UNIQUE(phone_number, email_address));
-                    """);
         stmt.executeUpdate("DELETE FROM person");
         stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
                 + "VALUES (1, 'LastName1', 'FirstName1', 'NickName1', '0100000000', '1 rue Rue', 'address1@gmail.com','2015-01-28 00:00:00.000')");

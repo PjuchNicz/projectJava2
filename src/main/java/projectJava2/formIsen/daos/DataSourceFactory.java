@@ -3,6 +3,9 @@ package projectJava2.formIsen.daos;
 import org.sqlite.SQLiteDataSource;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DataSourceFactory {
 
@@ -25,5 +28,26 @@ public class DataSourceFactory {
             dataSource.setUrl("jdbc:sqlite:sqlite.db");
         }
         return dataSource;
+    }
+
+    public static void initDb() {
+        try (Connection connection = getDataSource().getConnection()) {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(
+                    """
+                            CREATE TABLE IF NOT EXISTS person (\r
+                              idperson INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r
+                              lastname VARCHAR(45) NOT NULL,\r
+                              firstname VARCHAR(45) NOT NULL,\r
+                              nickname VARCHAR(45) NOT NULL,\r
+                              phone_number VARCHAR(15) NULL,\r
+                              address VARCHAR(200) NULL,\r
+                              email_address VARCHAR(150) NULL,\r
+                              birth_date DATE NULL,\r
+                              UNIQUE(phone_number, email_address));
+                        """);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
