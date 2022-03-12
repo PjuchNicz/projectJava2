@@ -62,8 +62,8 @@ public class researchPersonController {
 		PersonDao personDao = new PersonDao();
 
 		listOfPersons = personDao.listPersonsByLastnameAndFirstname(lastname_send,firstname_send);
-		for(int i = 0;i < listOfPersons.size();i++) {
-			myListView.getItems().add(listOfPersons.get(i));
+		for (Person listOfPerson : listOfPersons) {
+			myListView.getItems().add(listOfPerson);
 		}
 		
 		displayResultFirstname();  
