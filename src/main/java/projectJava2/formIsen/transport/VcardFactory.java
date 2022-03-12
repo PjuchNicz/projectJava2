@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import projectJava2.formIsen.daos.PersonDao;
@@ -29,7 +28,7 @@ public class VcardFactory {
 	 */
 	public String personToVCard(Person person) {
 		String text = "BEGIN:VCARD\r\nVERSION:4.0\r\n";
-		text += "UID:"+person.getId()+"\r\n";
+		text += "UID:"+person.getIdperson()+"\r\n";
 		if(person.getNickname().isEmpty()) {
 			text += "FN:"+person.getLastname()+" "+person.getFirstname()+"\r\n";
 		}

@@ -10,6 +10,7 @@ public class MainLayoutController {
 	}
 
 	public void gotoHome() {
+		System.out.println("pass");
 		App.showView("HomeScreen");
 	}
 	

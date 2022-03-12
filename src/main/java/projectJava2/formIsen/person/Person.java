@@ -30,7 +30,7 @@ public class Person {
         this.friend_list = new ArrayList<>(Arrays.asList(friend_list));
     }
 
-    public Integer getId() {
+    public Integer getIdperson() {
         return idperson;
     }
 

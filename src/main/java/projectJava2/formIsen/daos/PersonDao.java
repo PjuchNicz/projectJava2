@@ -2,7 +2,6 @@ package projectJava2.formIsen.daos;
 
 import projectJava2.formIsen.person.Person;
 
-import javax.management.RuntimeErrorException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -237,7 +236,7 @@ public class PersonDao {
                 statement.setString(6, person.getEmail_address());
                 statement.setDate(7, Date.valueOf(person.getBirth_date()));
                 statement.setString(8, Arrays.toString(person.getFriend_list()));
-                statement.setInt(9, person.getId());
+                statement.setInt(9, person.getIdperson());
                 int nbRows = statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -255,7 +254,7 @@ public class PersonDao {
         try (Connection connection = getDataSource().getConnection()) {
             try (PreparedStatement statement =
                          connection.prepareStatement("DELETE FROM PERSON WHERE idperson=?")) {
-                statement.setInt(1, person.getId());
+                statement.setInt(1, person.getIdperson());
                 statement.executeUpdate();
             }
         }catch (SQLException e) {
