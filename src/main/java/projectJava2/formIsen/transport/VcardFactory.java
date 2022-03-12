@@ -15,12 +15,18 @@ import java.util.List;
 
 import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.person.Person;
-
+/**
+* VcardFactory permet d'avoir une class différente pour gerer les cartes virtuelles
+*/
 public class VcardFactory {
 	DateTimeFormatter fmt1 = DateTimeFormatter.BASIC_ISO_DATE;
 	public VcardFactory() {
 	}
-
+	/**
+	 * Transforme une personne en texte pour le fichier vcf.
+	 * @param person personne à transformer
+	 * @return le texte du fichier vcf
+	 */
 	public String personToVCard(Person person) {
 		String text = "BEGIN:VCARD\r\nVERSION:4.0\r\n";
 		text += "UID:"+person.getId()+"\r\n";
@@ -45,6 +51,10 @@ public class VcardFactory {
 		text += "END:VCARD";
 		return text;
 	}
+	/**
+	 * Transforme une personne en fichier vcf dans le fichier vcf avec PrenomNom.vcf dans le dossier vcard.
+	 * @param person personne à transformer
+	 */
 	public void vcardCreator(Person person) throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path root = Paths.get(projectDirectory+"/vcard");
@@ -56,7 +66,12 @@ public class VcardFactory {
 		}
 		bufferedWriter.flush();
 	}
-
+	/**
+	 * Permet d'importer une carte vcf en personne dans la base donnée
+	 * @param FirstName prenom de la personne dans le nom du fichier
+	 * @param LastName nom de la personne dans le nom du fichier
+	 * @return objet person crée
+	 */
 	public Person cardToPerson(String FirstName,String LastName) throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path root = Paths.get(projectDirectory+"/vcard");

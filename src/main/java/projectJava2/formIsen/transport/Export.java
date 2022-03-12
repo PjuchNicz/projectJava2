@@ -13,17 +13,28 @@ import java.util.List;
 
 import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.person.Person;
+/**
+* Export est une class qui regroupe les méthodes pour exporter la base donnée vers différents fichiers
+*/
 public class Export {
 	String filename;
 	String separator;
 	String extension;
+	/**
+	 * Builder de la class export.
+	 * @param file le nom.extension du fichier
+	 * @param separator le caractère qui séparera les différentes variables dans les fichiers
+	 */
 	public Export(String file,String separator) {
 		this.filename = file.split("\\.")[0];
 		this.extension = file.split("\\.")[1];
 		this.separator = separator;
 	}
 
-
+	/**
+	 * Methode pour ecrire une ligne dans un ficher
+	 * @param liste liste de string sur laquelle la méthode va itérer pour ecrire chaque ligne
+	 */
 	public void writeFile(List<String> liste) throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path root = Paths.get(projectDirectory);
@@ -39,6 +50,9 @@ public class Export {
 		bufferedWriter.flush();
 
 	}
+	/**
+	 * Methode pour exporter la base de donnée dans un certain type de fichier csv,txt ou Vcard
+	 */
 	public void exportDataBase() throws IOException {
 		PersonDao dao = new PersonDao();
 		List<Person> listePersons = dao.listPersons();
