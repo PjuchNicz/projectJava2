@@ -17,27 +17,31 @@ import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.person.Person;
 
 public class VcardFactory {
-
+	DateTimeFormatter fmt1 = DateTimeFormatter.BASIC_ISO_DATE;
 	public VcardFactory() {
 	}
 
 	public String personToVCard(Person person) {
 		String text = "BEGIN:VCARD\r\nVERSION:4.0\r\n";
 		text += "UID:"+person.getId()+"\r\n";
-		if(person.getNickname().equals("")) {
-			text+="FN:"+person.getNickname()+"\r\n";
+		if(person.getNickname().isEmpty()) {
+			text += "FN:"+person.getLastname()+" "+person.getFirstname()+"\r\n";
 		}
 		else {
-			text += "FN:"+person.getLastname()+" "+person.getFirstname()+"\r\n";
+			text+="FN:"+person.getNickname()+"\r\n";
 		}
 		text += "N:"+person.getLastname()+";"+person.getFirstname()+"\r\n";
 		
 		
 		text += "TEL;CELL:"+person.getPhone_number()+"\r\n";
 		text +=  "ADR;TYPE=home:;;Rue;"+person.getAddress()+";Pays;CodePostal\r\n";
-		text += "EMAIL;INTERNET:"+person.getEmail_address()+"\r\n";
-		DateTimeFormatter fmt1 = DateTimeFormatter.BASIC_ISO_DATE;
+		text += "EMAIL:"+person.getEmail_address()+"\r\n";
+		
 		text += "BDAY:"+person.getBirth_date().format(fmt1)+"\r\n";
+		for(String p : person.getFriend_list()) {
+			text += "RELATED;TYPE=contact:mailto:"+p+"\r\n";
+		}
+		
 		text += "END:VCARD";
 		return text;
 	}
@@ -61,6 +65,7 @@ public class VcardFactory {
 		if(Files.exists(path)) {
 			BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 			String line, lastname = null, firstname = null, nickname = null, phone_number = null, address = null, email_address = null;
+			List<String> friend_list = new ArrayList<String>();
 			int uid;
 			LocalDate birth_date = null;
 			while ((line = bufferedReader.readLine()) != null) {
@@ -78,11 +83,12 @@ public class VcardFactory {
 				   case "TEL" -> phone_number = value;
 				   case "ADR" -> address = value.replace(";"," ");
 				   case "EMAIL" -> email_address = value;
-				   case "BDAY" -> birth_date = LocalDate.parse(value);
+				   case "BDAY" -> birth_date = LocalDate.parse(value,fmt1);
+				   case "RELATED" -> friend_list.add(value);
 			   }
 			}
 			PersonDao personDao = new PersonDao();
-			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date);
+			return personDao.addPerson(lastname, firstname, nickname, phone_number, address, email_address, birth_date,friend_list.toArray(new String[0]));
 		}
 		else {
 			System.out.println("Vcard : No such Vcard in vcard directory");
