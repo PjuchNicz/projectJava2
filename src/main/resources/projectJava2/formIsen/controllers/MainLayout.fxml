@@ -1,58 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Tab?>
-
 <?import javafx.scene.control.TabPane?>
-
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane prefHeight="450.0" prefWidth="600.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.MainLayoutController">
-
-	<top>
-
-		<TabPane prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-
-			<tabs>
-
-				<Tab closable="false" onSelectionChanged="#gotoHome" text="Home">
-
-					<content>
-
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-
-					</content>
-
-				</Tab>
-
-				<Tab closable="false" onSelectionChanged="#gotoFormAdd" text="Form">
-
-					<content>
-
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-
-					</content>
-
-				</Tab>
-
-				<Tab closable="false" onSelectionChanged="#gotoResearchPerson" text="Research Person">
-
-					<content>
-
-						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-
-					</content>
-
-				</Tab>
-
-			</tabs>
-
-		</TabPane>
-
-	</top>
-
+   <top>
+      <TabPane fx:id="mainTab" prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab closable="false" onSelectionChanged="#gotoHome" text="Home">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab closable="false" onSelectionChanged="#gotoFormAdd" text="Form">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab closable="false" onSelectionChanged="#gotoResearchPerson" text="Research Person">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </top>
 </BorderPane>
-

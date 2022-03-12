@@ -38,7 +38,7 @@ public class App extends Application {
 		mainlayout = loadFXML("MainLayout");
 		// Back to normal, except we use our newly defined member. Seems cumbersome, but
 		// it will make sense in two seconds
-		scene = new Scene(mainlayout, 640, 480);
+		scene = new Scene(mainlayout, 1000, 480);
 		stage.setScene(scene);
 		stage.show();
 		// This is also new for this PW : you have to call the default view you want to
@@ -77,7 +77,7 @@ public class App extends Application {
 			// We can only set the center of a borderPane, not a Parent, so we rely on
 			// either an explicit cast or our better generics implementation to convert our
 			// scene and modify it.
-			mainlayout.setCenter(loadFXML(rootElement));
+			mainlayout.setLeft(loadFXML(rootElement));
 		} catch (IOException e) {
 			// Chances are that the file is not found. Nothing we can do, really, but as
 			// IOException is checked, it would require us to add nasty support all over our

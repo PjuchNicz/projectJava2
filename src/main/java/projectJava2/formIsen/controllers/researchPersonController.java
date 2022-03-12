@@ -4,6 +4,8 @@
 package projectJava2.formIsen.controllers;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +15,22 @@ import projectJava2.formIsen.person.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import projectJava2.formIsen.daos.PersonDao;
+import projectJava2.formIsen.controllers.MainLayoutController;
 
 public class researchPersonController {
 	@FXML
@@ -32,26 +40,54 @@ public class researchPersonController {
 	public TextField lastname;
 
 	@FXML
-	public Text displayResultFirstname;
+	public TextField displayResultFirstname;
 
 	@FXML
-	public Text displayResultLastname;
+	public TextField displayResultLastname;
 
 	@FXML
-	public Text displayResultNickname;
+	public TextField displayResultNickname;
 
 	@FXML
-	public Text displayResultPhoneNumber;
+	public TextField displayResultPhoneNumber;
 
 	@FXML
-	public Text displayResultAddress;
+	public TextField displayResultAddress;
 
 	@FXML
-	public Text displayResultEmail;
+	public TextField displayResultEmail;
 
 	@FXML
-	public Text displayResultBirthdate;
-
+	public DatePicker displayResultBirthdate;
+	
+	public String getTextdisplayResultFirstname() {
+		return displayResultFirstname.getText().toString();
+	}
+	
+	public String getTextdisplayResultLastname() {
+		return displayResultLastname.getText().toString();
+	}
+	
+	public String getTextdisplayResultNickname() {
+		return displayResultNickname.getText().toString();
+	}
+	
+	public String getTextdisplayResultPhoneNumber() {
+		return displayResultPhoneNumber.getText().toString();
+	}
+	
+	public String getTextdisplayResultEmail() {
+		return displayResultEmail.getText().toString();
+	}
+	
+	public String getTextdisplayResultAddress() {
+		return displayResultAddress.getText().toString();
+	}
+	
+	public LocalDate getdisplayResultBirthdate() {
+		return displayResultBirthdate.getValue();
+	}
+	
 	List<Person> listOfPersons = new ArrayList<>();
 
 	@FXML
@@ -91,6 +127,17 @@ public class researchPersonController {
 
 	}
 
+	@FXML
+	public void handleModifyButton() throws IOException {
+		System.out.println(getTextdisplayResultFirstname());
+	}
+	
+	@FXML
+	public void handleDeleteButton() throws IOException {
+		
+	}
+	
+	
 	public String getTextFirstname() {
 		return firstname.getText().toString();
 	}
@@ -99,36 +146,43 @@ public class researchPersonController {
 		return lastname.getText().toString();
 	}
 
-	public void displayResultFirstname() {
-		displayResultFirstname.setText(listOfPersons.get(0).getFirstname());
+	public void displayResultFirstname(Person selectedPerson) {
+		displayResultFirstname.setText(selectedPerson.getFirstname());
 	}
 
-	public void displayResultNickname() {
-		displayResultNickname.setText(listOfPersons.get(0).getNickname());
+	public void displayResultNickname(Person selectedPerson) {
+		displayResultNickname.setText(selectedPerson.getNickname());
 	}
 
-	public void displayResultLasttname() {
-		displayResultLastname.setText(listOfPersons.get(0).getLastname());
+	public void displayResultLastname(Person selectedPerson) {
+		displayResultLastname.setText(selectedPerson.getLastname());
 	}
 
-	public void displayResultPhoneNumber() {
-		displayResultPhoneNumber.setText(listOfPersons.get(0).getPhone_number());
+	public void displayResultPhoneNumber(Person selectedPerson) {
+		displayResultPhoneNumber.setText(selectedPerson.getPhone_number());
 	}
 
-	public void displayResultAddress() {
-		displayResultAddress.setText(listOfPersons.get(0).getAddress());
+	public void displayResultAddress(Person selectedPerson) {
+		displayResultAddress.setText(selectedPerson.getAddress());
 	}
 
-	public void displayResultEmail() {
-		displayResultEmail.setText(listOfPersons.get(0).getEmail_address());
+	public void displayResultEmail(Person selectedPerson) {
+		displayResultEmail.setText(selectedPerson.getEmail_address());
 	}
 
-	public void displayResultBirthdate() {
-		displayResultBirthdate.setText(listOfPersons.get(0).getBirth_date().toString());
+	public void displayResultBirthdate(Person selectedPerson) {
+		displayResultBirthdate.setValue(selectedPerson.getBirth_date());
 	}
 
 	public void selectPerson() {
 		Person selectedPerson = table.getSelectionModel().getSelectedItem();
 		System.out.println(selectedPerson);
+		displayResultFirstname(selectedPerson);
+		displayResultLastname(selectedPerson);
+		displayResultNickname(selectedPerson);
+		displayResultPhoneNumber(selectedPerson);
+		displayResultAddress(selectedPerson);
+		displayResultEmail(selectedPerson);
+		displayResultBirthdate(selectedPerson);
 	}
 }

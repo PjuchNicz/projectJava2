@@ -71,19 +71,20 @@ public class formController {
 		LocalDate birth_date_send = getBirthdate();
 
 		PersonDao personDao = new PersonDao();
-		Person person = new Person();
+		
 		try {
-			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send,null);
-			System.out.print(person);
+			Person person = new Person();
+			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send,new String[]{""});
 			firstname.setText("");
 			lastname.setText("");
 			nickname.setText("");
 			tel.setText("");
 			email.setText("");
 			address.setText("");
-			birthdate.setValue(null);
+			birthdate.setPromptText("");
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			System.out.println("Un ou plusieurs champs sont vides");
 			champs_vide.setText("Un ou plusieurs champs sont vides");
 		}

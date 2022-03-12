@@ -28,6 +28,6 @@
       <Text layoutX="197.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
       <Text layoutX="196.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
       <Text layoutX="188.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" />
-      <Text fx:id="champs_vide" layoutX="333.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="oui" wrappingWidth="196.50390625" />
+      <Text fx:id="champs_vide" layoutX="333.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="196.50390625" />
    </children>
 </AnchorPane>
