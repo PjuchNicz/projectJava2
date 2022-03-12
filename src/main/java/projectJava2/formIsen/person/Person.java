@@ -2,7 +2,6 @@ package projectJava2.formIsen.person;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -16,13 +15,12 @@ public class Person {
     private String address;
     private String email_address;
     private LocalDate birth_date;
-    private List<String> friend_list;
 
     public Person() {
     }
 
     public Person(Integer idperson, String lastname, String firstname, String nickname, String phone_number, String address,
-                  String email_address, LocalDate birth_date,String[] friend_list) {
+                  String email_address, LocalDate birth_date) {
         this.idperson = idperson;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -31,7 +29,6 @@ public class Person {
         this.address = address;
         this.email_address = email_address;
         this.birth_date = birth_date;
-        this.friend_list = new ArrayList<String>(Arrays.asList(friend_list));
     }
 
     public Integer getId() {
@@ -97,13 +94,21 @@ public class Person {
     public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-    
-    public void addFriend(Person friend) {
-    	friend_list.add(friend.getEmail_address());
+
+    @Override
+    public String toString() {
+        String string = super.toString();
+        string += " [id : " + idperson;
+        string += "| lastname : " + lastname;
+        string += "| firstname : " + firstname;
+        string += "| nickname : " + nickname;
+        string += "\nphone_number : " + phone_number;
+        string += "| address : " + address;
+        string += "| email_address : " + email_address;
+        string += "| birth_date : " + birth_date + "]";
+        return string;
     }
-    public String[] getFriend_list(){
-    	return friend_list.toArray(new String[0]);
-    }
+
     public String toString(String separator) {
     	String formatedString = String.join(separator,
     	idperson.toString(),
@@ -113,8 +118,7 @@ public class Person {
         phone_number,
         address,
         email_address,
-        birth_date.toString(),
-        Arrays.toString(getFriend_list()));
+        birth_date.toString());
     	return formatedString;
     }
 } 

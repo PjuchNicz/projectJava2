@@ -1,12 +1,10 @@
 BEGIN:VCARD
-VERSION:4.0
-UID:5
-FN:NickName
-N:LastName;FirstName
+VERSION:2.1
+FN:FirstName LastName
+N:FirstName;LastName
 TEL;CELL:0600000000
 ADR;TYPE=home:;;Rue;1 rue Rue;Pays;CodePostal
-EMAIL:adress@gmail.com
+EMAIL;INTERNET:adress@gmail.com
 BDAY:20151129
-RELATED;TYPE=contact:mailto:mael.nivel@student.junia.com
-RELATED;TYPE=contact:mailto:leolol
+UID:
 END:VCARD

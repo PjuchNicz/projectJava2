@@ -20,7 +20,12 @@ public class Export {
 	public Export(String file,String separator) {
 		this.filename = file.split("\\.")[0];
 		this.extension = file.split("\\.")[1];
-		this.separator = separator;	
+		this.separator = separator;
+		Person leo = new Person(2,"Ada","Léo","Leotarie","0781436035","Boulogne","leo.arnoult-de-almeida@student.junia.com",LocalDate.now());
+		Person mael = new Person(3,"Nivel","Mael","Rage","0646627429","Arras","mael.nivel@student.junia.com",LocalDate.now());
+		//PersonDao dao = new PersonDao();
+		//dao.addPerson(leo);
+		//dao.addPerson(mael);		
     }
 	
 	
@@ -44,16 +49,12 @@ public class Export {
 		List<Person> listePersons = dao.listPersons();
 		if(extension.equals("txt") || extension.equals("csv") ) {
 			List<String> listestring = new ArrayList<String>();
-			for(Person p : listePersons) {
+			for(Person p : listePersons) { //Pour tout les utilisateurs mettre la version string dans la liste
 				listestring.add(p.toString(separator));
 			}
 			writeFile(listestring);
 		}
 		else if(extension.equals("vcf")) {
-			VcardFactory v = new VcardFactory();
-			for(Person p : listePersons) {
-				v.vcardCreator(p);
-			}
 			
 		}
 		else {
