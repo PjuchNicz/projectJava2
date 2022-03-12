@@ -71,6 +71,7 @@ public class PersonDao {
     }
 
     /**
+     * Permet de trouver une personne unique
      * SELECT * FROM person WHERE email_address=?
      * @param email_address : email_address de la personne recherchée
      * @return Person : {@link Person} UNIQUE trouvée
