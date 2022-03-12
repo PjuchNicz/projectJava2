@@ -56,20 +56,39 @@ public class formController {
 	
 	@FXML
 	public Text displayBirthdate;
+	@FXML
+	public Text champs_vide;
 	
 	@FXML
 	public void handleLaunchButton() throws IOException {
 		// Here we make use of our new method allowing us to change views inside the main Parent		
-		String firstname = getTextFirstname();
-		String lastname = (getTextLastname());
-		String nickname =getTextNickname();
-		String phone_number =getTextTel();
-		String email_address = getTextEmail();
-		String address = getTextAdress();
-		LocalDate birth_date =getBirthdate();
+		String firstname_send = getTextFirstname();
+		String lastname_send = getTextLastname();
+		String nickname_send = getTextNickname();
+		String phone_number_send = getTextTel();
+		String email_address_send = getTextEmail();
+		String address_send = getTextAdress();
+		LocalDate birth_date_send =getBirthdate();
 
 		PersonDao personDao = new PersonDao();
-		personDao.addPerson(lastname,firstname,nickname,phone_number,address,email_address,birth_date);
+		Person person = new Person();
+		try {
+			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send);
+			System.out.print(person);
+			firstname.setText("");;
+			lastname.setText("");
+			nickname.setText("");
+			tel.setText("");
+			email.setText("");
+			address.setText("");
+			birthdate.setValue(null);
+		}
+		catch(Exception e){
+			System.out.println("Un ou plusieurs champs sont vides");
+			champs_vide.setText("Un ou plusieurs champs sont vides");
+		}
+		
+
 	}
 	
 	
@@ -103,30 +122,30 @@ public class formController {
 	}
 	
 	public void displayTextFirstname() {
-		displayFirstname.setText(getTextFirstname());
+		//displayFirstname.setText(getTextFirstname());
 	}
 	
 	public void displayTextLastname() {
-		displayLastname.setText(getTextLastname());
+		//displayLastname.setText(getTextLastname());
 	}
 	
 	public void displayTextNickname() {
-		displayNickname.setText(getTextNickname());
+		//displayNickname.setText(getTextNickname());
 	}
 	
 	public void displayTextTel() {
-		displayTel.setText(getTextTel());
+		//displayTel.setText(getTextTel());
 	}
 	
 	public void displayTextAddress() {
-		displayAddress.setText(getTextAdress());
+		//displayAddress.setText(getTextAdress());
 	}
 	
 	public void displayTextEmail() {
-		displayEmail.setText(getTextEmail());
+		//displayEmail.setText(getTextEmail());
 	}
 	
 	public void displayTextBirthdate() {
-		displayBirthdate.setText(getBirthdate().toString());
+		//displayBirthdate.setText(getBirthdate().toString());
 	}
 }
