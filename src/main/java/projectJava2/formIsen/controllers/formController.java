@@ -75,7 +75,7 @@ public class formController {
 		try {
 			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send);
 			System.out.print(person);
-			firstname.setText("");;
+			firstname.setText("");
 			lastname.setText("");
 			nickname.setText("");
 			tel.setText("");

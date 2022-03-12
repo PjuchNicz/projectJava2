@@ -16,5 +16,8 @@ public class MainLayoutController {
 	public void gotoFormAdd() {
 		App.showView("Form");
 	}
-
+	
+	public void gotoResearchPerson() {
+		App.showView("ResearchPerson");
+	}
 }

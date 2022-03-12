@@ -79,7 +79,7 @@ public class PersonTestDao {
         // WHEN
         List<Person> personsList1 = personDao.listPersonsByLastnameOrFirstname("LastName2", "FirstName2");
         List<Person> personsList2 = personDao.listPersonsByLastnameOrFirstname("LastName2", null);
-        List<Person> personsList3 = personDao.listPersonsByLastnameOrFirstname(null, null);
+         List<Person> personsList3 = personDao.listPersonsByLastnameOrFirstname(null, null);
         // THEN
         assertThat(personsList1).hasSize(2);
         assertThat(personsList2).hasSize(1);

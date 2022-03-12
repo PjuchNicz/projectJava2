@@ -15,6 +15,8 @@
 					<MenuItem mnemonicParsing="false" onAction="#gotoHome" text="Home" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#gotoFormAdd" text="Add a person" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#gotoResearchPerson" text="Research a Person" />
 				  <SeparatorMenuItem mnemonicParsing="false" />
 					<MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Close" />		
 					</items>
