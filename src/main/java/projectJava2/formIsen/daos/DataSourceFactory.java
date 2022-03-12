@@ -44,6 +44,7 @@ public class DataSourceFactory {
                               address VARCHAR(200) NULL,\r
                               email_address VARCHAR(150) NULL,\r
                               birth_date DATE NULL,\r
+                              friend_list VARCHAR(1000) NULL,\r
                               UNIQUE(phone_number, email_address));
                         """);
         } catch (SQLException e) {

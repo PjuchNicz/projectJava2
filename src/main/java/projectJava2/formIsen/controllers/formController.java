@@ -68,12 +68,12 @@ public class formController {
 		String phone_number_send = getTextTel();
 		String email_address_send = getTextEmail();
 		String address_send = getTextAdress();
-		LocalDate birth_date_send =getBirthdate();
+		LocalDate birth_date_send = getBirthdate();
 
 		PersonDao personDao = new PersonDao();
 		Person person = new Person();
 		try {
-			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send);
+			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send,null);
 			System.out.print(person);
 			firstname.setText("");
 			lastname.setText("");

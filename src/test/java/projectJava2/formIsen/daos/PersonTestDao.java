@@ -26,12 +26,12 @@ public class PersonTestDao {
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM person");
-        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
-                + "VALUES (1, 'LastName1', 'FirstName1', 'NickName1', '0100000000', '1 rue Rue', 'address1@gmail.com','2015-01-28 00:00:00.000')");
-        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
-                + "VALUES (2, 'LastName2', 'FirstName2', 'NickName2', '0200000000', '2 rue Rue', 'address2@gmail.com','2015-02-28 00:00:00.000')");
-        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date) "
-                + "VALUES (3, 'LastName3', 'FirstName2', 'NickName3', '0300000000', '3 rue Rue', 'address3@gmail.com','2015-03-28 00:00:00.000')");
+        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date, friend_list)"
+                + "VALUES (1, 'LastName1', 'FirstName1', 'NickName1', '0100000000', '1 rue Rue', 'address1@gmail.com','2015-01-28 00:00:00.000', '[address2@gmail.com]')");
+        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date, friend_list)"
+                + "VALUES (2, 'LastName2', 'FirstName2', 'NickName2', '0200000000', '2 rue Rue', 'address2@gmail.com','2015-02-28 00:00:00.000', '[]')");
+        stmt.executeUpdate("INSERT INTO person(idperson, lastname, firstname, nickname, phone_number, address, email_address, birth_date, friend_list)"
+                + "VALUES (3, 'LastName3', 'FirstName2', 'NickName3', '0300000000', '3 rue Rue', 'address3@gmail.com','2015-03-28 00:00:00.000', '[address1@gmail.com,address3@gmail.com]')");
         stmt.close();
         connection.close();
     }
@@ -42,10 +42,14 @@ public class PersonTestDao {
         List<Person> persons = personDao.listPersons();
         // THEN
         assertThat(persons).hasSize(3);
-        assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date")
-                .containsOnly(tuple(1, "LastName1", "FirstName1", "NickName1", "0100000000", "1 rue Rue", "address1@gmail.com", LocalDateTime.parse("2015-01-28T00:00:00.000").toLocalDate()),
-                        tuple(2, "LastName2", "FirstName2", "NickName2", "0200000000", "2 rue Rue", "address2@gmail.com", LocalDateTime.parse("2015-02-28T00:00:00.000").toLocalDate()),
-                        tuple(3, "LastName3", "FirstName2", "NickName3", "0300000000", "3 rue Rue", "address3@gmail.com", LocalDateTime.parse("2015-03-28T00:00:00.000").toLocalDate()));
+        assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date", "friend_list")
+                .containsOnly(tuple(1, "LastName1", "FirstName1", "NickName1", "0100000000", "1 rue Rue", "address1@gmail.com", LocalDateTime.parse("2015-01-28T00:00:00.000").toLocalDate(),
+                        new String[]{"address2@gmail.com"}),
+                        tuple(2, "LastName2", "FirstName2", "NickName2", "0200000000", "2 rue Rue", "address2@gmail.com", LocalDateTime.parse("2015-02-28T00:00:00.000").toLocalDate(),
+                                new String[]{""}),
+                        tuple(3, "LastName3", "FirstName2", "NickName3", "0300000000", "3 rue Rue", "address3@gmail.com", LocalDateTime.parse("2015-03-28T00:00:00.000").toLocalDate(),
+                                new String[]{"address1@gmail.com","address3@gmail.com"}));
+
     }
 
     @Test
@@ -90,7 +94,8 @@ public class PersonTestDao {
     public void shouldAddPerson() throws Exception {
         // WHEN
         personDao.addPerson("LastName4", "FirstName4", "NickName4",
-                "0400000000", "4 rue Rue", "address4@gmail.com", LocalDateTime.parse("2015-04-28T00:00:00.000").toLocalDate());
+                "0400000000", "4 rue Rue", "address4@gmail.com", LocalDateTime.parse("2015-04-28T00:00:00.000").toLocalDate(),
+                new String[]{"address1@gmail.com", "address2@gmail.com", "address3@gmail.com"});
         // THEN
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement statement = connection.createStatement();
@@ -145,13 +150,17 @@ public class PersonTestDao {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM person");
         Person newPerson1 = personDao.addPerson("juch", "pierre", "pierro", "0611111111",
-                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
+                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate(),
+                new String[]{"address1@gmail.com", "address2@gmail.com", "address3@gmail.com"});
         Person newPerson2 = personDao.addPerson("juch", "pierre", "pierro", "0611111111",
-                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate());
+                "rue", "juch.pierre@", LocalDateTime.parse("2015-11-29T00:00:00.000").toLocalDate(),
+                new String[]{"address1@gmail.com", "address2@gmail.com", "address3@gmail.com"});
         List<Person> persons = personDao.listPersons();
         stmt.close();
         connection.close();
         // THEN
         assertThat(persons).hasSize(1);
     }
+
+    //TODO shouldAddFriend
 }

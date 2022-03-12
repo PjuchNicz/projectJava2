@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS person (
     phone_number VARCHAR(15) NULL,
     address VARCHAR(200) NULL,
     email_address VARCHAR(150) NULL,
-    birth_date DATE NULL
+    birth_date DATE NULL,
+    friend_list VARCHAR(200) NULL
     UNIQUE(phone_number, email_address));
 
 CREATE INDEX 'lastname_index' ON 'person' ('lastname');
