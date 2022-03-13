@@ -29,15 +29,7 @@ public class Import {
 	/**
 	 * Methode pour importer la base de donnée depuis un fichier en insérant dans la bdd chaque personne
 	 */
-<<<<<<< Updated upstream
 	public void importDataBase() {
-=======
-<<<<<<< HEAD
-		public void importDataBase() {
-=======
-	public void importDataBase() {
->>>>>>> 6afbaaf278157f936c68d7200d24b24a06e54438
->>>>>>> Stashed changes
 		String projectDirectory = System.getProperty("user.dir");
 		Path path = Paths.get(projectDirectory).resolve(file);
 		BufferedReader bufferedReader;
@@ -51,14 +43,7 @@ public class Import {
 		} catch (IOException e) {
 			System.out.println("File not exist");
 		}
-<<<<<<< Updated upstream
 		
-=======
-<<<<<<< HEAD
-=======
-		
->>>>>>> 6afbaaf278157f936c68d7200d24b24a06e54438
->>>>>>> Stashed changes
 	}
 	/**
 	 * Transforme une ligne d'un fichier en personne dans la base de donnée
