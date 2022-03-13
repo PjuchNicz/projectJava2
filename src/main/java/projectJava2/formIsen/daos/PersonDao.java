@@ -21,7 +21,6 @@ public class PersonDao {
             try (Statement statement = connection.createStatement()) {
                 try (ResultSet results = statement.executeQuery("SELECT * FROM person")) {
                     while (results.next()) {
-                        System.out.println(results.getDate("birth_date"));
                         Person person = new Person(results.getInt("idperson"),
                                 results.getString("lastname"),
                                 results.getString("firstname"),
@@ -49,7 +48,7 @@ public class PersonDao {
     public List<Person> listPersonsByFirstname(String firstname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE firstname=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(firstname)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, firstname);
                 try (ResultSet results = statement.executeQuery()) {
@@ -82,7 +81,7 @@ public class PersonDao {
     public Person personByEmailAddress(String email_address) {
         Person person = new Person();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE email_address=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(email_address)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, email_address);
                 try (ResultSet results = statement.executeQuery()) {
@@ -115,7 +114,7 @@ public class PersonDao {
     public List<Person> listPersonsByLastnameAndFirstname(String lastname, String firstname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE lastname=? AND firstname=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(lastname)=UPPER(?) AND UPPER(firstname)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, lastname);
                 statement.setString(2, firstname);
@@ -150,7 +149,7 @@ public class PersonDao {
     public List<Person> listPersonsByLastnameOrFirstname(String lastname, String firstname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE lastname=? OR firstname=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(lastname)=UPPER(?) OR UPPER(firstname)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, lastname);
                 statement.setString(2, firstname);
@@ -183,7 +182,7 @@ public class PersonDao {
     public List<Person> listPersonsByNickname(String nickname) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE nickname=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(nickname)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, nickname);
                 try (ResultSet results = statement.executeQuery()) {
@@ -246,7 +245,7 @@ public class PersonDao {
     public List<Person> listPersonsByAddress(String address) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE address=?";
+            String sqlQuery = "SELECT * FROM person WHERE UPPER(address)=UPPER(?)";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, address);
                 try (ResultSet results = statement.executeQuery()) {
@@ -360,9 +359,9 @@ public class PersonDao {
      * La personne à modifier doit avoir un idperson valide et existant dans la BDD
      * @param person : {@link Person} à modifier
      */
-    public void modifyPerson(Person person) {
+    public Integer modifyPerson(Person person) {
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "UPDATE person set lastname=?, firstname=?, nickname=?, phone_number=?, address=?," +
+            String sqlQuery = "UPDATE OR IGNORE person set lastname=?, firstname=?, nickname=?, phone_number=?, address=?," +
                     "email_address=?, birth_date=?, friend_list=? WHERE idperson=?";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, person.getLastname());
@@ -375,10 +374,15 @@ public class PersonDao {
                 statement.setString(8, Arrays.toString(person.getFriend_list()));
                 statement.setInt(9, person.getIdperson());
                 int nbRows = statement.executeUpdate();
+                if (nbRows == 0) {
+                    return 0;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
+        return 1;
     }
 
     /**

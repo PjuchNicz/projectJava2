@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import projectJava2.formIsen.App;
-
+/**
+ * La classe <b>MainLayoutController</b> est un borderPan qui sera le cadre principal de notre application, qui sera géré par des onglets
+ */
 public class MainLayoutController {
 	
 	@FXML

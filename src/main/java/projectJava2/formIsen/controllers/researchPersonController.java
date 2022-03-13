@@ -25,16 +25,16 @@ import projectJava2.formIsen.transport.VcardFactory;
 public class researchPersonController {
 	@FXML
 	public TextField field1;
-	
+
 	@FXML
 	public Text no_selection;
-	
+
 	@FXML
 	public TextField field2;
-	
+
 	@FXML
 	public TextField displayResultID;
-	
+
 	@FXML
 	public TextField displayResultFirstname;
 
@@ -52,54 +52,54 @@ public class researchPersonController {
 
 	@FXML
 	public TextField displayResultEmail;
-	
+
 	@FXML
 	public ComboBox comboBox;
-	
+
 	@FXML
 	public DatePicker displayResultBirthdate;
-	
+
 	@FXML
 	public DatePicker datePicker1;
-	
+
 	@FXML
 	public DatePicker datePicker2;
-	
+
 	public Text text1;
 	public Text text2;
 
 	public Integer getTextdisplayResultInt() {
 		return Integer.parseInt(displayResultID.getText().toString());
 	}
-	
+
 	public String getTextdisplayResultFirstname() {
 		return displayResultFirstname.getText().toString();
 	}
-	
+
 	public String getTextdisplayResultLastname() {
 		return displayResultLastname.getText().toString();
 	}
-	
+
 	public String getTextdisplayResultNickname() {
 		return displayResultNickname.getText().toString();
 	}
-	
+
 	public String getTextdisplayResultPhoneNumber() {
 		return displayResultPhoneNumber.getText().toString();
 	}
-	
+
 	public String getTextdisplayResultEmail() {
 		return displayResultEmail.getText().toString();
 	}
-	
+
 	public String getTextdisplayResultAddress() {
 		return displayResultAddress.getText().toString();
 	}
-	
+
 	public LocalDate getdisplayResultBirthdate() {
 		return displayResultBirthdate.getValue();
 	}
-		
+
 	List<Person> listOfPersons = new ArrayList<>();
 
 	@FXML
@@ -109,7 +109,11 @@ public class researchPersonController {
 	@FXML private TableColumn<Person, String> lastNameCol;
 	@FXML private TableColumn<Person, String> emailCol;
 
-
+	/**
+	 * Methode utilisé à l'initialisation permet de lier les colonnes de la TableView aux attributs d'une personne
+	 * Ajoute au comboBox les différentes valeurs et initialise sa valeur
+	 * Supprimer l'affichage des datePickers
+	 */
 	@FXML
 	public void initialize() {
 		userId.setCellValueFactory(new PropertyValueFactory<>("idperson"));
@@ -123,44 +127,55 @@ public class researchPersonController {
 		datePicker2.setDisable(true);
 		datePicker2.setOpacity(0);
 	}
-	
-	
+
+	/**
+	 * Methode qui permet de n'afficher qu'un seul input et son text
+	 * @param labelText : texte affiché
+	 */
 	public void setVisibilityOneParam(String labelText){
 		text1.setText(labelText);
 		text1.setOpacity(1);
-		field1.setDisable(false);	
+		field1.setDisable(false);
 		field1.setOpacity(1);
-		
+
 		text2.setOpacity(0);
 		field2.setDisable(true);
 		field2.setOpacity(0);
-		
+
 		datePicker1.setDisable(true);
 		datePicker1.setOpacity(0);
-		
+
 		datePicker2.setDisable(true);
 		datePicker2.setOpacity(0);
 		clearResearchInputs();
 	}
-	
+
+	/**
+	 * Méthode qui permet d'afficher deux inputs et leurs labels
+	 * @param labelText1 : premier label a afficher
+	 * @param labelText2 : deuxième label a afficher
+	 */
 	public void setVisibilityTwoParam(String labelText1, String labelText2){
 		text1.setText(labelText1);
 		text1.setOpacity(1);
-		field1.setDisable(false);	
+		field1.setDisable(false);
 		field1.setOpacity(1);
-		
+
 		text2.setText(labelText2);
 		text2.setOpacity(1);
 		field2.setDisable(false);
 		field2.setOpacity(1);
-		
+
 		datePicker1.setDisable(true);
 		datePicker1.setOpacity(0);
 		datePicker2.setDisable(true);
 		datePicker2.setOpacity(0);
 		clearResearchInputs();
 	}
-	
+
+	/**
+	 * Méthode qui permet d'appeler les différents affichages d'input et de label en fonction de la selection
+	 */
 	@FXML
 	public void comboBoxChange(){
 		String choice = comboBox.getSelectionModel().selectedItemProperty().getValue().toString();
@@ -198,9 +213,11 @@ public class researchPersonController {
 		}
 	}
 
+	/**
+	 * Méthode qui permet de réaliser les différents appels a la BDD en fonction de la selection dans le comboBox
+	 */
 	@FXML
-	public void handleLaunchButton() throws IOException {
-		// Here we make use of our new method allowing us to change views inside the main Parent		
+	public void handleLaunchButton() {
 		String field1Send = getTextField1();
 		String field2Send = getTextField2();
 		LocalDate datePicker1Send = getDatePicker1();
@@ -233,25 +250,33 @@ public class researchPersonController {
 		table.setItems(list);
 	}
 
+	/**
+	 * Méthode qui permet de modifier les attributs d'une personne au clic du bouton
+	 */
 	@FXML
-	public void handleModifyButton() throws IOException {
+	public void handleModifyButton() {
 		PersonDao personDao = new PersonDao();
 		try {
 			Person person = new Person(getTextdisplayResultInt(),getTextdisplayResultLastname(),getTextdisplayResultFirstname(),getTextdisplayResultNickname(),getTextdisplayResultPhoneNumber(),getTextdisplayResultAddress(),getTextdisplayResultEmail(),getdisplayResultBirthdate(),new String[]{""});
-			personDao.modifyPerson(person);
+			switch(personDao.modifyPerson(person)){
+				case 0 -> no_selection.setText("no change");
+				case 1 -> no_selection.setText("change done");
+			}
 			field1.setText(getTextdisplayResultFirstname());
 			field2.setText(getTextdisplayResultLastname());
 			handleLaunchButton();
-			no_selection.setText("");
 		}
 		catch(Exception e) {
 			no_selection.setText("Vous n'avez sélectionné personne");
 			System.out.println("Vous n'avez sélectionné personne");
 		}
 	}
-	
+
+	/**
+	 * Méthode qui permet de supprimer une personne de la BDD au clic du bouton
+	 */
 	@FXML
-	public void handleDeleteButton() throws IOException {
+	public void handleDeleteButton() {
 		PersonDao personDao = new PersonDao();
 		try {
 			Person person = new Person(getTextdisplayResultInt(),getTextdisplayResultLastname(),getTextdisplayResultFirstname(),getTextdisplayResultNickname(),getTextdisplayResultPhoneNumber(),getTextdisplayResultAddress(),getTextdisplayResultEmail(),getdisplayResultBirthdate(),new String[]{""});
@@ -267,19 +292,21 @@ public class researchPersonController {
 			System.out.println("Vous n'avez sélectionné personne");
 		}
 	}
-	
+
+	/**
+	 * Méthode qui permet d'exporter une personne au format v_card
+	 */
 	@FXML
-	public void exportSelectedPersonButton() throws IOException{
+	public void exportSelectedPersonButton() {
 		VcardFactory v = new VcardFactory();
 		try {
 			Person person = new Person(getTextdisplayResultInt(),getTextdisplayResultLastname(),getTextdisplayResultFirstname(),getTextdisplayResultNickname(),getTextdisplayResultPhoneNumber(),getTextdisplayResultAddress(),getTextdisplayResultEmail(),getdisplayResultBirthdate(),new String[]{""});
-		    v.vcardCreator(person);
-		    no_selection.setText("");
-		    clearSelectedInputs();
-		} 
+			v.vcardCreator(person);
+			clearSelectedInputs();
+		}
 		catch (Exception e1) {
-		    e1.printStackTrace();
-		    no_selection.setText("Vous n'avez sélectionné personne");
+			e1.printStackTrace();
+			no_selection.setText("Vous n'avez sélectionné personne");
 			System.out.println("Vous n'avez sélectionné personne");
 		}
 	}
@@ -291,19 +318,19 @@ public class researchPersonController {
 	public String getTextField2() {
 		return field2.getText().toString();
 	}
-	
+
 	public LocalDate getDatePicker1() {
 		return datePicker1.getValue();
 	}
-	
+
 	public LocalDate getDatePicker2() {
 		return datePicker2.getValue();
 	}
-	
+
 	public void displayResultID(Person selectedPerson) {
 		displayResultID.setText(selectedPerson.getIdperson().toString());
 	}
-	
+
 	public void displayResultFirstname(Person selectedPerson) {
 		displayResultFirstname.setText(selectedPerson.getFirstname());
 	}
@@ -332,28 +359,37 @@ public class researchPersonController {
 		displayResultBirthdate.setValue(selectedPerson.getBirth_date());
 	}
 
+	/**
+	 * Méthode pour sélectionner une personne dans la TableView au clic sur sa ligne
+	 */
 	public void selectPerson() {
 		try {
-		Person selectedPerson = table.getSelectionModel().getSelectedItem();
-		displayResultID(selectedPerson);
-		displayResultFirstname(selectedPerson);
-		displayResultLastname(selectedPerson);
-		displayResultNickname(selectedPerson);
-		displayResultPhoneNumber(selectedPerson);
-		displayResultAddress(selectedPerson);
-		displayResultEmail(selectedPerson);
-		displayResultBirthdate(selectedPerson);
+			Person selectedPerson = table.getSelectionModel().getSelectedItem();
+			displayResultID(selectedPerson);
+			displayResultFirstname(selectedPerson);
+			displayResultLastname(selectedPerson);
+			displayResultNickname(selectedPerson);
+			displayResultPhoneNumber(selectedPerson);
+			displayResultAddress(selectedPerson);
+			displayResultEmail(selectedPerson);
+			displayResultBirthdate(selectedPerson);
 		}
 		catch(Exception e) {
 			System.out.println("Not selectionable");
 		}
 	}
-	
+
+	/**
+	 * Méthode qui permet d'effacer les informations renseignées dans les inputs de recherche
+	 */
 	public void clearResearchInputs() {
 		field1.setText("");
 		field2.setText("");
 	}
-	
+
+	/**
+	 * Méthode qui permet d'effacer les informations renseignées dans le tableau pour modifier une personne
+	 */
 	public void clearSelectedInputs() {
 		displayResultID.setText("");
 		displayResultFirstname.setText("");

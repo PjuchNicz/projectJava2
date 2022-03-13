@@ -28,8 +28,9 @@ public class Import {
 	}
 	/**
 	 * Methode pour importer la base de donnée depuis un fichier en insérant dans la bdd chaque personne
+	 * @throws IOException 
 	 */
-	public void importDataBase() {
+	public void importDataBase() throws IOException {
 		String projectDirectory = System.getProperty("user.dir");
 		Path path = Paths.get(projectDirectory).resolve(file);
 		BufferedReader bufferedReader;
@@ -41,7 +42,7 @@ public class Import {
 			}
 			dao.listPersons().forEach(p -> System.out.println(p.toString(",")));
 		} catch (IOException e) {
-			System.out.println("File not exist");
+			throw new IOException("File not exist!");
 		}
 		
 	}

@@ -21,16 +21,18 @@
       </Text>
       <Text layoutX="87.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File name" />
       <Text layoutX="87.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Format" />
-      <Button layoutX="167.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleExportButton" text="Export " />
+      <Button layoutX="167.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleExportButton" text="Export" />
       <Text layoutX="630.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Import all the Database">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Text>
       <Text layoutX="581.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File name" />
-      <Button layoutX="698.0" layoutY="205.0" mnemonicParsing="false" onAction="#handleImportButton" text="Import" />
+      <Button layoutX="698.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleImportButton" text="Import" />
       <RadioButton fx:id="button4" layoutX="651.0" layoutY="146.0" mnemonicParsing="false" text="txt" />
       <RadioButton fx:id="button5" layoutX="650.0" layoutY="173.0" mnemonicParsing="false" text="csv" />
       <Text layoutX="581.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Format" />
+      <Text fx:id="textExport" layoutX="85.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="214.13671875" />
+      <Text fx:id="textImport" layoutX="568.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="311.13671875" />
    </children>
 </AnchorPane>

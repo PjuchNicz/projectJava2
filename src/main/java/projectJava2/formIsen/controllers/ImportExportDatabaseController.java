@@ -17,7 +17,12 @@ import javafx.scene.text.Text;
 import projectJava2.formIsen.daos.PersonDao;
 import projectJava2.formIsen.transport.Export;
 import projectJava2.formIsen.transport.Import;
-
+/**
+ * La classe <b>ImportExportDatabaseController</b> permet de contrôler le FXML ImportExportDatabase, permettant 
+ * d'importer un csv ou txt dans la database,
+ * ou d'exporter la database en vcard, en csv ou txt
+ * 
+ */
 public class ImportExportDatabaseController {
 	// Group
 	ToggleGroup group1 = new ToggleGroup();
@@ -53,6 +58,15 @@ public class ImportExportDatabaseController {
 	@FXML
 	TextField field2;
 	
+	@FXML
+	Text textExport;
+	
+	@FXML
+	Text textImport;
+	
+	/**
+	 * La methode <b>initialize</b> permet d'initialiser les RadioButton par groupe 
+	 */
 	public void initialize() {
 		button1.setToggleGroup(group1);
 		button2.setToggleGroup(group1);
@@ -72,25 +86,41 @@ public class ImportExportDatabaseController {
 		return field2.getText().toString();
 	}
 	
+	/**
+	 * La methode <b>handleExportButton</b> permet d'exporter à l'action du boutton <i>Export</i> dans la database dans un fichier dont le nom est inscrit dans le champs correspondant.
+	 * On peut choisir de soit les exporter en csv ou txt
+	 * Soit tout exporter en format vcf dans le dossier vcard
+	 */
 	@FXML
 	public void handleExportButton() throws IOException {
-		 if (group1.getSelectedToggle() != null) {
-             RadioButton button = (RadioButton) group1.getSelectedToggle();
-             String field1_get = getField1();
-             System.out.println(field1_get + button.getText());
-             Export e = new Export(field1_get+"."+button.getText(),";");
-             e.exportDataBase();
+		try {
+			 if (group1.getSelectedToggle() != null && !getField1().equals("")){
+	             RadioButton button = (RadioButton) group1.getSelectedToggle();
+	             String field1_get = getField1();
+	             Export e = new Export(field1_get+"."+button.getText(),";");
+	             e.exportDataBase();
+	             textExport.setText("Exported !");
+			}
+		} catch(Exception e){
+			textExport.setText("The file name is incorrect");
 		}
 	}
 	
+	/**
+	 * La methode <b>handleImportButton</b> permet d'importer à l'action du boutton <i>Import</i> un fichier txt ou csv avec le nom correspondant dans le champs associé
+	 */
 	@FXML
 	public void handleImportButton() throws IOException {
-		if (group2.getSelectedToggle() != null) {
-            RadioButton button = (RadioButton) group2.getSelectedToggle();
-            String field2_get = getField2();
-            System.out.println(field2_get+"."+button.getText());
-            Import i = new Import(field2_get+"."+button.getText(),";");
-            i.importDataBase();
+		try {
+			if (group2.getSelectedToggle() != null) {
+	            RadioButton button = (RadioButton) group2.getSelectedToggle();
+	            String field2_get = getField2();
+	            Import i = new Import(field2_get+"."+button.getText(),";");
+	            i.importDataBase();
+	            textImport.setText("Imported !");
+			}
+		} catch(Exception e){
+			textImport.setText("The file name is incorrect or doesn't exist");
 		}
 	}
 }
