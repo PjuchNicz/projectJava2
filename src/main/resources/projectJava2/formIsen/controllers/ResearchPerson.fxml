@@ -35,7 +35,7 @@
       <Text layoutX="618.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="213.603515625" />
       <Text layoutX="618.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="213.603515625" />
       <Text layoutX="618.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" wrappingWidth="213.603515625" />
-      <Text layoutX="638.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Person" textAlignment="CENTER" wrappingWidth="174.0">
+      <Text layoutX="673.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Person" textAlignment="CENTER" wrappingWidth="174.0">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -49,5 +49,7 @@
       <Button layoutX="666.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleModifyButton" text="Modify" />
       <Button layoutX="734.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
       <DatePicker fx:id="displayResultBirthdate" layoutX="718.0" layoutY="279.0" prefHeight="25.0" prefWidth="201.0" />
+      <Text layoutX="618.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="213.603515625" />
+      <TextField fx:id="displayResultID" editable="false" layoutX="718.0" layoutY="95.0" prefHeight="25.0" prefWidth="201.0" />
    </children>
 </AnchorPane>

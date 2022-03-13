@@ -38,7 +38,10 @@ public class researchPersonController {
 
 	@FXML
 	public TextField lastname;
-
+	
+	@FXML
+	public TextField displayResultID;
+	
 	@FXML
 	public TextField displayResultFirstname;
 
@@ -59,6 +62,10 @@ public class researchPersonController {
 
 	@FXML
 	public DatePicker displayResultBirthdate;
+	
+	public Integer getTextdisplayResultInt() {
+		return Integer.parseInt(displayResultID.getText().toString());
+	}
 	
 	public String getTextdisplayResultFirstname() {
 		return displayResultFirstname.getText().toString();
@@ -129,7 +136,14 @@ public class researchPersonController {
 
 	@FXML
 	public void handleModifyButton() throws IOException {
-		System.out.println(getTextdisplayResultFirstname());
+		PersonDao personDao = new PersonDao();
+		try {
+			Person person = new Person(getTextdisplayResultInt(),getTextdisplayResultLastname(),getTextdisplayResultFirstname(),getTextdisplayResultNickname(),getTextdisplayResultPhoneNumber(),getTextdisplayResultAddress(),getTextdisplayResultEmail(),getdisplayResultBirthdate(),new String[]{""});
+			personDao.modifyPerson(person);
+		}
+		catch(Exception e) {
+			System.out.println("Vous n'avez sélectionné personne");
+		}
 	}
 	
 	@FXML
@@ -145,7 +159,11 @@ public class researchPersonController {
 	public String getTextLastname() {
 		return lastname.getText().toString();
 	}
-
+	
+	public void displayResultID(Person selectedPerson) {
+		displayResultID.setText(selectedPerson.getIdperson().toString());
+	}
+	
 	public void displayResultFirstname(Person selectedPerson) {
 		displayResultFirstname.setText(selectedPerson.getFirstname());
 	}
@@ -176,7 +194,7 @@ public class researchPersonController {
 
 	public void selectPerson() {
 		Person selectedPerson = table.getSelectionModel().getSelectedItem();
-		System.out.println(selectedPerson);
+		displayResultID(selectedPerson);
 		displayResultFirstname(selectedPerson);
 		displayResultLastname(selectedPerson);
 		displayResultNickname(selectedPerson);
