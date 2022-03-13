@@ -123,11 +123,11 @@ public class formController {
 	}
 	
 	public void displayTextFirstname() {
-		//displayFirstname.setText(getTextFirstname());
+		//displayFirstname.setText(getTextField1());
 	}
 	
 	public void displayTextLastname() {
-		//displayLastname.setText(getTextLastname());
+		//displayLastname.setText(getTextField2());
 	}
 	
 	public void displayTextNickname() {

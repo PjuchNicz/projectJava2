@@ -15,10 +15,10 @@
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Text>
-      <TextField fx:id="firstname" layoutX="89.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
-      <TextField fx:id="lastname" layoutX="256.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
-      <Text layoutX="62.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname" textAlignment="CENTER" wrappingWidth="174.0" />
-      <Text layoutX="229.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname" textAlignment="CENTER" wrappingWidth="174.0" />
+      <TextField fx:id="field1" layoutX="89.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
+      <TextField fx:id="field2" layoutX="256.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
+      <Text fx:id="text1" layoutX="62.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname" textAlignment="CENTER" wrappingWidth="174.0" />
+      <Text fx:id="text2" layoutX="229.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname" textAlignment="CENTER" wrappingWidth="174.0" />
       <Button layoutX="419.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="Search" />
       <TableView fx:id="table" layoutX="62.0" layoutY="165.0" onMouseClicked="#selectPerson" prefHeight="200.0" prefWidth="477.0">
         <columns>

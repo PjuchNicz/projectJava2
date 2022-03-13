@@ -4,40 +4,28 @@
 package projectJava2.formIsen.controllers;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectJava2.formIsen.App;
 import projectJava2.formIsen.person.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import projectJava2.formIsen.daos.PersonDao;
-import projectJava2.formIsen.controllers.MainLayoutController;
 
 public class researchPersonController {
 	@FXML
-	public TextField firstname;
+	public TextField field1;
 
 	@FXML
-	public TextField lastname;
+	public TextField field2;
 	
 	@FXML
 	public TextField displayResultID;
@@ -62,7 +50,9 @@ public class researchPersonController {
 
 	@FXML
 	public DatePicker displayResultBirthdate;
-	
+	public Text text1;
+	public Text text2;
+
 	public Integer getTextdisplayResultInt() {
 		return Integer.parseInt(displayResultID.getText().toString());
 	}
@@ -118,20 +108,18 @@ public class researchPersonController {
 	@FXML
 	public void handleLaunchButton() throws IOException {
 		// Here we make use of our new method allowing us to change views inside the main Parent		
-		String firstname_send = getTextFirstname();
-		String lastname_send = getTextLastname();
+		String field1Send = getTextField1();
+		String field2Send = getTextField2();
 
 		PersonDao personDao = new PersonDao();
 
-		listOfPersons = personDao.listPersonsByLastnameAndFirstname(lastname_send,firstname_send);
+		listOfPersons = personDao.listPersonsByLastnameAndFirstname(field2Send,field1Send);
 		if (listOfPersons.size() == 0) {
-			listOfPersons = personDao.listPersonsByLastnameOrFirstname(lastname_send, firstname_send);
+			listOfPersons = personDao.listPersonsByLastnameOrFirstname(field2Send, field1Send);
 		}
 
 		ObservableList<Person> list = FXCollections.observableArrayList(listOfPersons);
 		table.setItems(list);
-
-
 	}
 
 	@FXML
@@ -150,14 +138,13 @@ public class researchPersonController {
 	public void handleDeleteButton() throws IOException {
 		
 	}
-	
-	
-	public String getTextFirstname() {
-		return firstname.getText().toString();
+
+	public String getTextField1() {
+		return field1.getText().toString();
 	}
 
-	public String getTextLastname() {
-		return lastname.getText().toString();
+	public String getTextField2() {
+		return field2.getText().toString();
 	}
 	
 	public void displayResultID(Person selectedPerson) {
