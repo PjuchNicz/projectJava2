@@ -8,10 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import projectJava2.formIsen.person.Person;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +39,7 @@ public class PersonTestDao {
         // WHEN
         List<Person> persons = personDao.listPersons();
         // THEN
+
         assertThat(persons).hasSize(3);
         assertThat(persons).extracting("idperson", "lastname", "firstname", "nickname", "phone_number", "address", "email_address", "birth_date", "friend_list")
                 .containsOnly(tuple(1, "LastName1", "FirstName1", "NickName1", "0100000000", "1 rue Rue", "address1@gmail.com", LocalDateTime.parse("2015-01-28T00:00:00.000").toLocalDate(),
@@ -83,19 +82,44 @@ public class PersonTestDao {
         // WHEN
         List<Person> personsList1 = personDao.listPersonsByLastnameOrFirstname("LastName2", "FirstName2");
         List<Person> personsList2 = personDao.listPersonsByLastnameOrFirstname("LastName2", null);
-         List<Person> personsList3 = personDao.listPersonsByLastnameOrFirstname(null, null);
+        List<Person> personsList3 = personDao.listPersonsByLastnameOrFirstname(null, null);
         // THEN
         assertThat(personsList1).hasSize(2);
         assertThat(personsList2).hasSize(1);
         assertThat(personsList3).hasSize(0);
     }
-    
+
     @Test
-    public void shouldListPersonsByBirthdate(){
+    public void shouldListPersonsByNickame(){
         // WHEN
-        List<Person> personList = personDao.listPersonsByBirthdate(LocalDateTime.parse("2015-01-28T00:00:00.000").toLocalDate(), LocalDateTime.parse("2015-02-28T00:00:00.000").toLocalDate());
+        List<Person> personsList = personDao.listPersonsByNickname("NickName1");
+        // THEN
+        assertThat(personsList).hasSize(1);
+    }
+
+    @Test
+    public void shouldPersonByPhoneNumber(){
+        // WHEN
+        Person person = personDao.personByPhoneNumber("0100000000");
+        // THEN
+        assertThat(Objects.equals(person.getAddress(), "0100000000"));
+    }
+
+    @Test
+    public void shouldListPersonByAddress(){
+        // WHEN
+        List<Person> personsList = personDao.listPersonsByAddress("3 rue Rue");
+        // THEN
+        assertThat(personsList).hasSize(1);
+
+    }
+
+    @Test
+    public void shouldListPersonsByBirthDate(){
+        // WHEN
+        List<Person> personList = personDao.listPersonsByBirthDate(LocalDate.of(2014, 1,28), LocalDate.of(2016, 5,28));
     	// THEN
-    	assertThat(personList).hasSize(2);
+    	assertThat(personList).hasSize(1);
     }
 
     @Test
@@ -111,6 +135,7 @@ public class PersonTestDao {
         assertThat(resultSet.next()).isTrue();
         assertThat(resultSet.getInt("idperson")).isNotNull();
         assertThat(resultSet.getString("firstname")).isEqualTo("FirstName4");
+        assertThat(resultSet.getDate("birth_date").equals(Date.valueOf(LocalDateTime.parse("2015-04-28T00:00:00.000").toLocalDate())));
         assertThat(resultSet.next()).isFalse();
         resultSet.close();
         statement.close();

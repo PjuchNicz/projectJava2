@@ -7,19 +7,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.formController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.formController">
    <children>
       <Text layoutX="213.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new person" textAlignment="CENTER" wrappingWidth="174.0" AnchorPane.topAnchor="34.734375">
          <font>
             <Font name="System Bold" size="16.0" />
          </font></Text>
-      <TextField fx:id="firstname" layoutX="258.0" layoutY="81.0" onKeyTyped="#displayTextFirstname" promptText="Firstname" />
-      <TextField fx:id="lastname" layoutX="258.0" layoutY="116.0" onKeyPressed="#displayTextLastname" promptText="Lastname" />
-      <TextField fx:id="nickname" layoutX="258.0" layoutY="151.0" onInputMethodTextChanged="#displayTextNickname" onKeyPressed="#displayTextNickname" promptText="Nickname" />
-      <TextField fx:id="tel" layoutX="258.0" layoutY="186.0" onInputMethodTextChanged="#displayTextTel" onKeyPressed="#displayTextTel" promptText="Phone number" />
-      <TextField fx:id="email" layoutX="258.0" layoutY="222.0" onInputMethodTextChanged="#displayTextEmail" onKeyPressed="#displayTextEmail" promptText="E-mail" />
-      <TextField fx:id="address" layoutX="258.0" layoutY="257.0" onInputMethodTextChanged="#displayTextAddress" onKeyPressed="#displayTextAddress" promptText="Address" />
-      <DatePicker fx:id="birthdate" layoutX="251.0" layoutY="295.0" onInputMethodTextChanged="#displayTextBirthdate" onKeyPressed="#displayTextBirthdate" promptText="Birth date" />
+      <TextField fx:id="firstname" layoutX="258.0" layoutY="81.0" promptText="Firstname" />
+      <TextField fx:id="lastname" layoutX="258.0" layoutY="116.0" promptText="Lastname" />
+      <TextField fx:id="nickname" layoutX="258.0" layoutY="151.0" promptText="Nickname" />
+      <TextField fx:id="tel" layoutX="258.0" layoutY="186.0" promptText="Phone number" />
+      <TextField fx:id="email" layoutX="258.0" layoutY="222.0" promptText="E-mail" />
+      <TextField fx:id="address" layoutX="258.0" layoutY="257.0" promptText="Address" />
+      <DatePicker fx:id="birthdate" layoutX="251.0" layoutY="295.0" promptText="Birth date" />
       <Button layoutX="279.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="Send" />
       <Text layoutX="188.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname" />
       <Text layoutX="189.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname" />
@@ -28,6 +28,6 @@
       <Text layoutX="197.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" />
       <Text layoutX="196.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
       <Text layoutX="188.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" />
-      <Text fx:id="champs_vide" layoutX="333.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="196.50390625" />
+      <Text fx:id="champs_vide" layoutX="338.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="262.50390625" />
    </children>
 </AnchorPane>

@@ -4,7 +4,6 @@ import projectJava2.formIsen.person.Person;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +21,7 @@ public class PersonDao {
             try (Statement statement = connection.createStatement()) {
                 try (ResultSet results = statement.executeQuery("SELECT * FROM person")) {
                     while (results.next()) {
+                        System.out.println(results.getDate("birth_date"));
                         Person person = new Person(results.getInt("idperson"),
                                 results.getString("lastname"),
                                 results.getString("firstname"),
@@ -96,7 +96,7 @@ public class PersonDao {
 	                    person.setEmail_address(results.getString("email_address"));
 	                    person.setBirth_date(results.getDate("birth_date").toLocalDate());
 	                    person.setFriend_list(results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
-                	}
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -174,9 +174,13 @@ public class PersonDao {
         }
         return listOfPersons;
     }
-    
+
+    /**
+     * Trouve une personne avec son nickname.
+     * @param nickname : nickname de la personne recherchée
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
     public List<Person> listPersonsByNickname(String nickname) {
-        //TODO testDAO
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "SELECT * FROM person WHERE nickname=?";
@@ -202,9 +206,13 @@ public class PersonDao {
         }
         return listOfPersons;
     }
-    
+
+    /**
+     * Trouve une personne avec son phone_number.
+     * @param phone_number : phone_number de la personne recherchée
+     * @return Person : {@link Person} UNIQUE trouvée
+     */
     public Person personByPhoneNumber(String phone_number) {
-        //TODO testdao
         Person person = new Person();
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "SELECT * FROM person WHERE phone_number=?";
@@ -230,8 +238,12 @@ public class PersonDao {
         return person;
     }
 
+    /**
+     * Trouve une personne avec son address.
+     * @param address : address de la personne recherchée
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
     public List<Person> listPersonsByAddress(String address) {
-        //TODO testDAO
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
             String sqlQuery = "SELECT * FROM person WHERE address=?";
@@ -258,17 +270,25 @@ public class PersonDao {
         return listOfPersons;
     }
 
-    public List<Person> listPersonsByBirthdate(LocalDate date1, LocalDate date2) {
-        //TODO testDAO
-        LocalDate fromDate = LocalDateTime.parse("2015-01-28").toLocalDate();
-        System.out.println(fromDate);
-        Date toDate = Date.valueOf(date2);
+    /**
+     * Selection de toutes les personnes entre deux dates
+     * Ici ne marche pas, "SELECT * FROM person WHERE birth_date>=?" renvoie toutes les personnes sans prendre en compte
+     * le param date1
+     * "SELECT * FROM person WHERE birth_date BETWEEN ? AND ?" ne fonctionne pas même si les dates sont bien comprises dans
+     * la plage de donnée
+     * "SELECT * FROM person WHERE birth_date<=?" ne fonctionne pas peu importe la date donc
+     * "SELECT * FROM person WHERE birth_date>=? and birth_date<=?" ne peut pas fonctionner non plus
+     * @param date1 : Date de début
+     * @param date2 : Date de fin
+     * @return List<Person> : liste avec les {@link Person} trouvées
+     */
+    public List<Person> listPersonsByBirthDate(LocalDate date1, LocalDate date2) {
         List<Person> listOfPersons = new ArrayList<>();
         try (Connection connection = getDataSource().getConnection()) {
-            String sqlQuery = "SELECT * FROM person WHERE email_address = ?";
+            String sqlQuery = "SELECT * FROM person WHERE birth_date BETWEEN ? AND ?";
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-                statement.setDate(1, Date.valueOf(fromDate));
-                //statement.setDate(2, toDate);
+                statement.setDate(1, Date.valueOf(date1));
+                statement.setDate(2, Date.valueOf(date2));
                 try (ResultSet results = statement.executeQuery()) {
                     while (results.next()) {
                         Person person = new Person(results.getInt("idperson"),
@@ -289,8 +309,6 @@ public class PersonDao {
         }
         return listOfPersons;
     }
-
-   
 
     /**
      * Ajoute dans la bdd une nouvelle personne uniquement si celle si n'est pas déjà présente dans la BDD
@@ -323,7 +341,6 @@ public class PersonDao {
                 statement.executeUpdate();
                 ResultSet ids = statement.getGeneratedKeys();
                 if (ids.getInt(1) == 0) {
-                    //TODO Trouver un moyen d'avoir un répertoire des conflits
                     System.out.println("La personne existe déjà dans la bdd");
                     return null;
                 }

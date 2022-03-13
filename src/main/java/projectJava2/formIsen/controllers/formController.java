@@ -35,47 +35,25 @@ public class formController {
 	
 	@FXML
 	public DatePicker birthdate;
-	
-	@FXML
-	public Text displayFirstname;
-	
-	@FXML
-	public Text displayLastname;
-	
-	@FXML
-	public Text displayNickname;
-	
-	@FXML
-	public Text displayTel;
-	
-	@FXML
-	public Text displayEmail;
-	
-	@FXML
-	public Text displayAddress;
-	
-	@FXML
-	public Text displayBirthdate;
-	
+
 	@FXML
 	public Text champs_vide;
 	
+	private PersonDao personDao = new PersonDao();
+
 	@FXML
 	public void handleLaunchButton() throws IOException {
-		// Here we make use of our new method allowing us to change views inside the main Parent		
-		String firstname_send = getTextFirstname();
-		String lastname_send = getTextLastname();
-		String nickname_send = getTextNickname();
-		String phone_number_send = getTextTel();
-		String email_address_send = getTextEmail();
-		String address_send = getTextAdress();
-		LocalDate birth_date_send = getBirthdate();
+		// Here we make use of our new method allowing us to change views inside the main Parent	
+			String firstname_send = getTextFirstname();
+			String lastname_send = getTextLastname();
+			String nickname_send = getTextNickname();
+			String phone_number_send = getTextTel();
+			String email_address_send = getTextEmail();
+			String address_send = getTextAdress();
+			LocalDate birth_date_send = getBirthdate();
 
-		PersonDao personDao = new PersonDao();
-		
 		try {
-			Person person = new Person();
-			person = personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send,new String[]{""});
+			personDao.addPerson(lastname_send,firstname_send,nickname_send,phone_number_send,address_send,email_address_send,birth_date_send,new String[]{""});
 			firstname.setText("");
 			lastname.setText("");
 			nickname.setText("");
@@ -83,17 +61,11 @@ public class formController {
 			email.setText("");
 			address.setText("");
 			birthdate.setValue(null);
+		} catch(NullPointerException e){
+			System.out.println("Un ou plusieurs champs sont vides ou invalides");
+			champs_vide.setText("Un ou plusieurs champs sont vides ou invalides");
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			System.out.println("Un ou plusieurs champs sont vides");
-			champs_vide.setText("Un ou plusieurs champs sont vides");
-		}
-		
-
 	}
-	
-	
 	
 	public String getTextFirstname() {
 		return firstname.getText().toString();
@@ -123,31 +95,4 @@ public class formController {
 		return birthdate.getValue();
 	}
 	
-	public void displayTextFirstname() {
-		//displayFirstname.setText(getTextField1());
-	}
-	
-	public void displayTextLastname() {
-		//displayLastname.setText(getTextField2());
-	}
-	
-	public void displayTextNickname() {
-		//displayNickname.setText(getTextNickname());
-	}
-	
-	public void displayTextTel() {
-		//displayTel.setText(getTextTel());
-	}
-	
-	public void displayTextAddress() {
-		//displayAddress.setText(getTextAdress());
-	}
-	
-	public void displayTextEmail() {
-		//displayEmail.setText(getTextEmail());
-	}
-	
-	public void displayTextBirthdate() {
-		//displayBirthdate.setText(getBirthdate().toString());
-	}
 }

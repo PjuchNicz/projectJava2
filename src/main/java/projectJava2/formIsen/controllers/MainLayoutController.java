@@ -27,7 +27,6 @@ public class MainLayoutController {
 	}
 	
 	public void gotoFormAdd() {
-		//System.out.println(mainTab.getTabs());
 		App.showView("Form");
 	}
 	
@@ -39,10 +38,4 @@ public class MainLayoutController {
 		App.showView("ImportExportDatabase");
 	}
 	
-	public void addTab() {
-		System.out.println(mainTab.getTabs());
-		//final Tab tab = new Tab("Tab " + (mainTab.getTabs().size() + 1));
-		//mainTab.getTabs().add(tab);
-		//mainTab.getSelectionModel().select(tab);
-	}
 }

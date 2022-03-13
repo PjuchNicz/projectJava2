@@ -116,7 +116,7 @@ public class researchPersonController {
 		firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstname"));
 		lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastname"));
 		emailCol.setCellValueFactory(new PropertyValueFactory<>("email_address"));
-		comboBox.getItems().setAll("Firstname / Lastname","Nickname","Phone number", "Address", "Email address", "Birth date");
+		comboBox.getItems().setAll("Firstname / Lastname","Nickname","Phone number", "Address", "Email address", "Entire DB");
 		comboBox.setValue("Firstname / Lastname");
 		datePicker1.setDisable(true);
 		datePicker1.setOpacity(0);
@@ -124,66 +124,52 @@ public class researchPersonController {
 		datePicker2.setOpacity(0);
 	}
 	
+	
+	public void setVisibilityOneParam(String labelText){
+		text1.setText(labelText);
+		text1.setOpacity(1);
+		field1.setDisable(false);	
+		field1.setOpacity(1);
+		
+		text2.setOpacity(0);
+		field2.setDisable(true);
+		field2.setOpacity(0);
+		
+		datePicker1.setDisable(true);
+		datePicker1.setOpacity(0);
+		
+		datePicker2.setDisable(true);
+		datePicker2.setOpacity(0);
+		clearResearchInputs();
+	}
+	
+	public void setVisibilityTwoParam(String labelText1, String labelText2){
+		text1.setText(labelText1);
+		text1.setOpacity(1);
+		field1.setDisable(false);	
+		field1.setOpacity(1);
+		
+		text2.setText(labelText2);
+		text2.setOpacity(1);
+		field2.setDisable(false);
+		field2.setOpacity(1);
+		
+		datePicker1.setDisable(true);
+		datePicker1.setOpacity(0);
+		datePicker2.setDisable(true);
+		datePicker2.setOpacity(0);
+		clearResearchInputs();
+	}
+	
 	@FXML
 	public void comboBoxChange(){
 		String choice = comboBox.getSelectionModel().selectedItemProperty().getValue().toString();
 		switch(choice) {
-			case "Firstname / Lastname" -> {
-				text1.setText("Firstname");
-				text2.setText("Lastname");
-				text2.setOpacity(1);
-				field2.setOpacity(1);
-				field2.setDisable(false);
-				datePicker1.setDisable(true);
-				datePicker1.setOpacity(0);
-				datePicker2.setDisable(true);
-				datePicker2.setOpacity(0);
-				clearResearchInputs();
-			}
-			case "Nickname" -> {
-				text1.setText("Nickname");
-				text2.setOpacity(0);
-				field2.setOpacity(0);
-				field2.setDisable(true);
-				datePicker1.setDisable(true);
-				datePicker1.setOpacity(0);
-				datePicker2.setDisable(true);
-				datePicker2.setOpacity(0);
-				clearResearchInputs();
-			}
-			case "Phone number" -> {
-				text1.setText("Phone number");
-				text2.setOpacity(0);
-				field2.setOpacity(0);
-				field2.setDisable(true);
-				datePicker1.setDisable(true);
-				datePicker1.setOpacity(0);
-				datePicker2.setDisable(true);
-				datePicker2.setOpacity(0);
-				clearResearchInputs();
-			}
-			case "Address" -> {
-				text1.setText("Address");
-				text2.setOpacity(0);
-				field2.setOpacity(0);
-				field2.setDisable(true);
-				datePicker1.setDisable(true);
-				datePicker1.setOpacity(0);
-				datePicker2.setDisable(true);
-				datePicker2.setOpacity(0);
-				clearResearchInputs();
-			}
-			case "Email address" -> {
-				text1.setText("Email address");
-				text2.setOpacity(0);
-				field2.setOpacity(0);
-				field2.setDisable(true);
-				datePicker1.setDisable(true);
-				datePicker1.setOpacity(0);
-				datePicker2.setDisable(true);
-				datePicker2.setOpacity(0);
-				clearResearchInputs();
-			}
+			case "Firstname / Lastname" -> setVisibilityTwoParam("Firstname", "Lastname");
+			case "Nickname" -> setVisibilityOneParam("Nickname");
+			case "Phone number" -> setVisibilityOneParam("Phone number");
+			case "Address" -> setVisibilityOneParam("Address");
+			case "Email address" -> setVisibilityOneParam("Email address");
 			case "Birth date" -> {
 				text1.setText("Birth date from");
 				text2.setOpacity(1);
@@ -194,6 +180,19 @@ public class researchPersonController {
 				datePicker1.setOpacity(1);
 				datePicker2.setDisable(false);
 				datePicker2.setOpacity(1);
+				clearResearchInputs();
+			}
+			case "Entire DB" -> {
+				text1.setText("Entire DB");
+				text2.setOpacity(0);
+				field1.setOpacity(0);
+				field1.setDisable(true);
+				field2.setOpacity(0);
+				field2.setDisable(true);
+				datePicker1.setDisable(true);
+				datePicker1.setOpacity(0);
+				datePicker2.setDisable(true);
+				datePicker2.setOpacity(0);
 				clearResearchInputs();
 			}
 		}
@@ -226,7 +225,8 @@ public class researchPersonController {
 				listOfPersons.add(personDao.personByEmailAddress(field1Send));
 			}
 			case "Address" -> listOfPersons = personDao.listPersonsByAddress(field1Send);
-			case "Birth date" -> listOfPersons = personDao.listPersonsByBirthdate(datePicker1Send, datePicker2Send);
+			case "Birth date" -> listOfPersons = personDao.listPersonsByBirthDate(datePicker1Send, datePicker2Send);
+			case "Entire DB" -> listOfPersons = personDao.listPersons();
 		}
 
 		ObservableList<Person> list = FXCollections.observableArrayList(listOfPersons);

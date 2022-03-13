@@ -246,3 +246,5 @@ buildNumber.properties
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij,visualstudiocode,java,maven
+*.db
+sqlite.db
