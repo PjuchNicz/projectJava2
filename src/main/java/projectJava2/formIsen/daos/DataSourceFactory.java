@@ -40,12 +40,11 @@ public class DataSourceFactory {
                               lastname VARCHAR(45) NOT NULL,\r
                               firstname VARCHAR(45) NOT NULL,\r
                               nickname VARCHAR(45) NOT NULL,\r
-                              phone_number VARCHAR(15) NULL,\r
+                              phone_number VARCHAR(15) NOT NULL UNIQUE,\r
                               address VARCHAR(200) NULL,\r
-                              email_address VARCHAR(150) NULL,\r
+                              email_address VARCHAR(150) NOT NULL UNIQUE,\r
                               birth_date DATE NULL,\r
-                              friend_list VARCHAR(1000) NULL,\r
-                              UNIQUE(phone_number, email_address));
+                              friend_list VARCHAR(1000) NULL);
                         """);
         } catch (SQLException e) {
             e.printStackTrace();
