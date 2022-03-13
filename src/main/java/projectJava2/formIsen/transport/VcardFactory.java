@@ -39,7 +39,7 @@ public class VcardFactory {
 
 
 		text += "TEL;CELL:"+person.getPhone_number()+"\r\n";
-		text +=  "ADR;TYPE=home:;;Rue;"+person.getAddress()+";Pays;CodePostal\r\n";
+		text +=  "ADR;TYPE=home:;;;"+person.getAddress()+";;\r\n";
 		text += "EMAIL:"+person.getEmail_address()+"\r\n";
 
 		text += "BDAY:"+person.getBirth_date().format(fmt1)+"\r\n";

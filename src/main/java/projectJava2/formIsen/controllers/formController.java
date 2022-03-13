@@ -56,6 +56,7 @@ public class formController {
 	
 	@FXML
 	public Text displayBirthdate;
+	
 	@FXML
 	public Text champs_vide;
 	
@@ -81,7 +82,7 @@ public class formController {
 			tel.setText("");
 			email.setText("");
 			address.setText("");
-			birthdate.setPromptText("");
+			birthdate.setValue(null);
 		}
 		catch(Exception e){
 			e.printStackTrace();

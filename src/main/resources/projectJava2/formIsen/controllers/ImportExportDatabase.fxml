@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projectJava2.formIsen.controllers.ImportExportDatabaseController">
+   <children>
+      <TextField fx:id="field1" layoutX="156.0" layoutY="104.0" promptText="File name" />
+      <TextField layoutX="650.0" layoutY="104.0" />
+      <RadioButton fx:id="button1" layoutX="157.0" layoutY="146.0" mnemonicParsing="false" text="txt" />
+      <RadioButton fx:id="button2" layoutX="156.0" layoutY="173.0" mnemonicParsing="false" text="csv" />
+      <RadioButton fx:id="button3" layoutX="156.0" layoutY="200.0" mnemonicParsing="false" text="vcard" />
+      <Text layoutX="114.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Export all the Database">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="87.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File name" />
+      <Text layoutX="87.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Format" />
+      <Button layoutX="167.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleLaunchButton" text="Export " />
+   </children>
+</AnchorPane>

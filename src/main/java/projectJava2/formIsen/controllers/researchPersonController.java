@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import projectJava2.formIsen.daos.PersonDao;
+import projectJava2.formIsen.transport.VcardFactory;
 
 public class researchPersonController {
 	@FXML
@@ -263,6 +264,22 @@ public class researchPersonController {
 		}
 		catch(Exception e) {
 			no_selection.setText("Vous n'avez sélectionné personne");
+			System.out.println("Vous n'avez sélectionné personne");
+		}
+	}
+	
+	@FXML
+	public void exportSelectedPersonButton() throws IOException{
+		VcardFactory v = new VcardFactory();
+		try {
+			Person person = new Person(getTextdisplayResultInt(),getTextdisplayResultLastname(),getTextdisplayResultFirstname(),getTextdisplayResultNickname(),getTextdisplayResultPhoneNumber(),getTextdisplayResultAddress(),getTextdisplayResultEmail(),getdisplayResultBirthdate(),new String[]{""});
+		    v.vcardCreator(person);
+		    no_selection.setText("");
+		    clearSelectedInputs();
+		} 
+		catch (Exception e1) {
+		    e1.printStackTrace();
+		    no_selection.setText("Vous n'avez sélectionné personne");
 			System.out.println("Vous n'avez sélectionné personne");
 		}
 	}

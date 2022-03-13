@@ -56,6 +56,6 @@
       <Text fx:id="no_selection" layoutX="718.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="201.0" />
       <DatePicker fx:id="datePicker1" layoutX="89.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
       <DatePicker fx:id="datePicker2" layoutX="256.0" layoutY="111.0" prefHeight="25.0" prefWidth="119.0" />
-      <Button layoutX="795.0" layoutY="340.0" mnemonicParsing="false" text="Export" />
+      <Button layoutX="795.0" layoutY="340.0" mnemonicParsing="false" onAction="#exportSelectedPersonButton" text="Export" />
    </children>
 </AnchorPane>

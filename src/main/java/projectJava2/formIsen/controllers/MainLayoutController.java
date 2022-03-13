@@ -35,6 +35,10 @@ public class MainLayoutController {
 		App.showView("ResearchPerson");
 	}
 	
+	public void gotoImportExportDatabase() {
+		App.showView("ImportExportDatabase");
+	}
+	
 	public void addTab() {
 		System.out.println(mainTab.getTabs());
 		//final Tab tab = new Tab("Tab " + (mainTab.getTabs().size() + 1));

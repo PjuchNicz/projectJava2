@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:4.0
+UID:81
+FN:Test1
+N:Test1;Pierre
+TEL;CELL:Test1
+ADR;TYPE=home:;;Rue;Test1;Pays;CodePostal
+EMAIL:Test1
+BDAY:20220312
+RELATED;TYPE=contact:mailto:
+END:VCARD
