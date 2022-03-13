@@ -29,15 +29,21 @@ public class Import {
 	/**
 	 * Methode pour importer la base de donnée depuis un fichier en insérant dans la bdd chaque personne
 	 */
-	public void importDataBase() throws IOException {
+	public void importDataBase() {
 		String projectDirectory = System.getProperty("user.dir");
 		Path path = Paths.get(projectDirectory).resolve(file);
-		BufferedReader bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-		String line;
-		while ((line = bufferedReader.readLine()) != null) {
-			stringToPersonDataBase(line);
+		BufferedReader bufferedReader;
+		try {
+			bufferedReader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				stringToPersonDataBase(line);
+			}
+			dao.listPersons().forEach(p -> System.out.println(p.toString(",")));
+		} catch (IOException e) {
+			System.out.println("File not exist");
 		}
-		dao.listPersons().forEach(p -> System.out.println(p.toString(",")));
+		
 	}
 	/**
 	 * Transforme une ligne d'un fichier en personne dans la base de donnée
