@@ -27,7 +27,7 @@ public class MainLayoutController {
 	}
 	
 	public void gotoFormAdd() {
-		System.out.println(mainTab.getTabs());
+		//System.out.println(mainTab.getTabs());
 		App.showView("Form");
 	}
 	

@@ -89,6 +89,14 @@ public class PersonTestDao {
         assertThat(personsList2).hasSize(1);
         assertThat(personsList3).hasSize(0);
     }
+    
+    @Test
+    public void shouldListPersonsByBirthdate(){
+        // WHEN
+        List<Person> personList = personDao.listPersonsByBirthdate(LocalDateTime.parse("2015-01-28T00:00:00.000").toLocalDate(), LocalDateTime.parse("2015-02-28T00:00:00.000").toLocalDate());
+    	// THEN
+    	assertThat(personList).hasSize(2);
+    }
 
     @Test
     public void shouldAddPerson() throws Exception {

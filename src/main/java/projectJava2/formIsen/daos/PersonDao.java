@@ -4,6 +4,7 @@ import projectJava2.formIsen.person.Person;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -85,15 +86,17 @@ public class PersonDao {
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, email_address);
                 try (ResultSet results = statement.executeQuery()) {
-                    person.setId(results.getInt("idperson"));
-                    person.setLastname(results.getString("lastname"));
-                    person.setFirstname(results.getString("firstname"));
-                    person.setNickname(results.getString("nickname"));
-                    person.setPhone_number(results.getString("phone_number"));
-                    person.setAddress(results.getString("address"));
-                    person.setEmail_address(results.getString("email_address"));
-                    person.setBirth_date(results.getDate("birth_date").toLocalDate());
-                    person.setFriend_list(results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                    while (results.next()) {
+	                    person.setId(results.getInt("idperson"));
+	                    person.setLastname(results.getString("lastname"));
+	                    person.setFirstname(results.getString("firstname"));
+	                    person.setNickname(results.getString("nickname"));
+	                    person.setPhone_number(results.getString("phone_number"));
+	                    person.setAddress(results.getString("address"));
+	                    person.setEmail_address(results.getString("email_address"));
+	                    person.setBirth_date(results.getDate("birth_date").toLocalDate());
+	                    person.setFriend_list(results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                	}
                 }
             }
         } catch (SQLException e) {
@@ -171,6 +174,123 @@ public class PersonDao {
         }
         return listOfPersons;
     }
+    
+    public List<Person> listPersonsByNickname(String nickname) {
+        //TODO testDAO
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE nickname=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, nickname);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        Person person = new Person(results.getInt("idperson"),
+                                results.getString("lastname"),
+                                results.getString("firstname"),
+                                results.getString("nickname"),
+                                results.getString("phone_number"),
+                                results.getString("address"),
+                                results.getString("email_address"),
+                                results.getDate("birth_date").toLocalDate(),
+                                results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                        listOfPersons.add(person);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
+    }
+    
+    public Person personByPhoneNumber(String phone_number) {
+        //TODO testdao
+        Person person = new Person();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE phone_number=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, phone_number);
+                try (ResultSet results = statement.executeQuery()) {
+                    while(results.next()){
+                        person.setId(results.getInt("idperson"));
+	                    person.setLastname(results.getString("lastname"));
+	                    person.setFirstname(results.getString("firstname"));
+	                    person.setNickname(results.getString("nickname"));
+	                    person.setPhone_number(results.getString("phone_number"));
+	                    person.setAddress(results.getString("address"));
+	                    person.setEmail_address(results.getString("email_address"));
+	                    person.setBirth_date(results.getDate("birth_date").toLocalDate());
+	                    person.setFriend_list(results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    public List<Person> listPersonsByAddress(String address) {
+        //TODO testDAO
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE address=?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, address);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        Person person = new Person(results.getInt("idperson"),
+                                results.getString("lastname"),
+                                results.getString("firstname"),
+                                results.getString("nickname"),
+                                results.getString("phone_number"),
+                                results.getString("address"),
+                                results.getString("email_address"),
+                                results.getDate("birth_date").toLocalDate(),
+                                results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                        listOfPersons.add(person);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
+    }
+
+    public List<Person> listPersonsByBirthdate(LocalDate date1, LocalDate date2) {
+        //TODO testDAO
+        LocalDate fromDate = LocalDateTime.parse("2015-01-28").toLocalDate();
+        System.out.println(fromDate);
+        Date toDate = Date.valueOf(date2);
+        List<Person> listOfPersons = new ArrayList<>();
+        try (Connection connection = getDataSource().getConnection()) {
+            String sqlQuery = "SELECT * FROM person WHERE email_address = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setDate(1, Date.valueOf(fromDate));
+                //statement.setDate(2, toDate);
+                try (ResultSet results = statement.executeQuery()) {
+                    while (results.next()) {
+                        Person person = new Person(results.getInt("idperson"),
+                                results.getString("lastname"),
+                                results.getString("firstname"),
+                                results.getString("nickname"),
+                                results.getString("phone_number"),
+                                results.getString("address"),
+                                results.getString("email_address"),
+                                results.getDate("birth_date").toLocalDate(),
+                                results.getString("friend_list").replaceAll("[\\[\\](){}\\s]","").split(","));
+                        listOfPersons.add(person);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfPersons;
+    }
+
+   
 
     /**
      * Ajoute dans la bdd une nouvelle personne uniquement si celle si n'est pas déjà présente dans la BDD
