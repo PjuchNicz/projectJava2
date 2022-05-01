@@ -21,6 +21,7 @@ public class PersonTestDao {
     @Before
     public void initDbTest() throws Exception {
         initDb();
+        //test
         Connection connection = DataSourceFactory.getDataSource().getConnection();
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM person");
